@@ -1,1 +1,1 @@
-List<String> options = ['Nhà xe', 'Tài xế'];
+List<String> options = ['0', '1'];
