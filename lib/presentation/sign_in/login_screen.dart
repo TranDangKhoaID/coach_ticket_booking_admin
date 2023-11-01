@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     email: email,
                     password: password,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
