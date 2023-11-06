@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
-import 'package:tdc_coach_admin/presentation/home_page_garage/home_garage_screen.dart';
+import 'package:tdc_coach_admin/presentation/garage/main_garage_screen.dart';
 import 'package:tdc_coach_admin/presentation/sign_in/component/header_img_widget.dart';
 import 'package:tdc_coach_admin/presentation/sign_in/component/text_field.dart';
 import 'package:tdc_coach_admin/app/auth/auth_controller.dart';

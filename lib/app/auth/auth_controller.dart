@@ -1,11 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-
-import 'package:tdc_coach_admin/app/manager/color_manager.dart';
-import 'package:tdc_coach_admin/app/storage/app_shared.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
@@ -39,6 +35,7 @@ class AuthController extends GetxController {
           if (email == emailGarageDB) {
             // AppPreferences.instance.setIsLoggedIn();
             // AppPreferences.instance.saveOptionIsLoggedIn(0);
+            isLoggedIn.value = true;
             EasyLoading.dismiss();
           } else {
             EasyLoading.dismiss();
@@ -66,6 +63,7 @@ class AuthController extends GetxController {
     // Thực hiện đăng xuất và cập nhật trạng thái đăng nhập
     auth.signOut();
     //AppPreferences.instance.logout();
+    userType.value = '0';
     isLoggedIn.value = false;
   }
 }
