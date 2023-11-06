@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 
 class DetailTripScreen extends StatefulWidget {
-  final void Function()? onTap;
   const DetailTripScreen({
     super.key,
-    required this.onTap,
   });
   @override
   State<DetailTripScreen> createState() => _DetailTripScreenState();

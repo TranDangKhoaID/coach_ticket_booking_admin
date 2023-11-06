@@ -22,7 +22,7 @@ class HomePageScreen extends StatelessWidget {
           children: [
             TripItem(
               onTap: () {
-                Get.toNamed('/detail_trip');
+                Get.to(() => DetailTripScreen());
               },
             ),
             TripItem(

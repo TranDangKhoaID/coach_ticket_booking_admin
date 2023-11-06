@@ -14,8 +14,10 @@ class TripItem extends StatelessWidget {
     return Column(
       children: [
         Container(
+          margin: EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: AppColor.primary[300],
+            borderRadius: BorderRadius.circular(10),
           ),
           padding: const EdgeInsets.all(16),
           child: Column(
