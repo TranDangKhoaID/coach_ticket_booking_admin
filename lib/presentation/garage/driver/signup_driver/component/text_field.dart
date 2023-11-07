@@ -30,6 +30,7 @@ class TFSignUpDriverWidget extends StatelessWidget {
           ),
           child: TextField(
             controller: fullName,
+            style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Icon(
@@ -54,6 +55,7 @@ class TFSignUpDriverWidget extends StatelessWidget {
           ),
           child: TextField(
             controller: phone,
+            style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Icon(
@@ -78,6 +80,7 @@ class TFSignUpDriverWidget extends StatelessWidget {
           ),
           child: TextField(
             controller: email,
+            style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Icon(
@@ -101,7 +104,9 @@ class TFSignUpDriverWidget extends StatelessWidget {
             ),
           ),
           child: TextField(
+            obscureText: true,
             controller: password,
+            style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Icon(
@@ -126,6 +131,7 @@ class TFSignUpDriverWidget extends StatelessWidget {
           ),
           child: TextField(
             controller: drivingLicense,
+            style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Icon(

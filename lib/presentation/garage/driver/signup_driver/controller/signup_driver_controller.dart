@@ -19,6 +19,15 @@ class SignupDriverController extends GetxController {
   }) async {
     EasyLoading.show(status: 'Đang tải');
     try {
+      if (email.isEmpty ||
+          password.isEmpty ||
+          fullName.isEmpty ||
+          phone.isEmpty ||
+          drivingLicense.isEmpty) {
+        EasyLoading.dismiss();
+        EasyLoading.showError('Vui lòng nhập đầy đủ các trường!');
+        return;
+      }
       final UserCredential userCredential =
           await auth.createUserWithEmailAndPassword(
         email: email,

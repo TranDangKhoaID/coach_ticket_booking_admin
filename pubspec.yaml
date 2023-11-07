@@ -43,6 +43,8 @@ dependencies:
   flutter_easyloading: ^3.0.5
   curved_navigation_bar: ^1.0.3
   dotted_line: ^3.2.2
+  firebase_storage: ^11.4.1
+  image_picker: ^1.0.4
 
 dev_dependencies:
   flutter_test:
@@ -69,7 +71,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/login/images/
-  #   - images/a_dot_ham.jpeg
+    - assets/car/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
