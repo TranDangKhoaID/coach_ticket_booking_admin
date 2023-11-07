@@ -13,8 +13,19 @@ class AddCar extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: Center(
-        child: Text('Thêm xe'),
+      body: Container(
+        margin: EdgeInsets.all(10),
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Center(
+              child: Container(
+                height: 150,
+                width: 150,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

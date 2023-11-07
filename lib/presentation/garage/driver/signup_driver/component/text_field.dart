@@ -2,7 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 
 class TFSignUpDriverWidget extends StatelessWidget {
-  const TFSignUpDriverWidget({super.key});
+  final TextEditingController email;
+  final TextEditingController password;
+  final TextEditingController fullName;
+  final TextEditingController phone;
+  final TextEditingController drivingLicense;
+  const TFSignUpDriverWidget({
+    super.key,
+    required this.email,
+    required this.password,
+    required this.fullName,
+    required this.phone,
+    required this.drivingLicense,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +29,7 @@ class TFSignUpDriverWidget extends StatelessWidget {
             ),
           ),
           child: TextField(
+            controller: fullName,
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Icon(
@@ -40,6 +53,7 @@ class TFSignUpDriverWidget extends StatelessWidget {
             ),
           ),
           child: TextField(
+            controller: phone,
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Icon(
@@ -63,6 +77,7 @@ class TFSignUpDriverWidget extends StatelessWidget {
             ),
           ),
           child: TextField(
+            controller: email,
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Icon(
@@ -86,6 +101,7 @@ class TFSignUpDriverWidget extends StatelessWidget {
             ),
           ),
           child: TextField(
+            controller: password,
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Icon(
@@ -109,6 +125,7 @@ class TFSignUpDriverWidget extends StatelessWidget {
             ),
           ),
           child: TextField(
+            controller: drivingLicense,
             decoration: InputDecoration(
               border: InputBorder.none,
               prefixIcon: Icon(

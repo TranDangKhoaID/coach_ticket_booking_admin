@@ -5,6 +5,7 @@ import 'package:tdc_coach_admin/app/app.dart';
 import 'package:tdc_coach_admin/app/storage/app_shared.dart';
 import 'package:tdc_coach_admin/firebase_options.dart';
 import 'package:tdc_coach_admin/app/auth/auth_controller.dart';
+import 'package:tdc_coach_admin/presentation/garage/driver/signup_driver/controller/signup_driver_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +13,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Get.put(AuthController());
+  Get.put(SignupDriverController());
   AppShared.init();
   runApp(const MyApp());
 }

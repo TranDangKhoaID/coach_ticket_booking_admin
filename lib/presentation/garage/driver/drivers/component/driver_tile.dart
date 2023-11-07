@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tdc_coach_admin/app/constants/image_constants.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
+import 'package:tdc_coach_admin/domain/model/driver.dart';
 
 class DriverTile extends StatelessWidget {
-  const DriverTile({super.key});
+  final Driver driver;
+  const DriverTile({
+    super.key,
+    required this.driver,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +22,17 @@ class DriverTile extends StatelessWidget {
       child: ListTile(
         title: Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: Text('Đặng Cao Đại'),
+          child: Text(driver.fullName),
         ),
-        subtitle: Text('0902800531'),
+        subtitle: Text(driver.phone),
         leading: Container(
           width: 50,
           height: double.infinity,
-          child: Image.asset(ImageConstants.clockLogin),
+          // ignore: unnecessary_null_comparison
+          child: const Icon(
+            Icons.person,
+            size: 50,
+          ),
         ),
         trailing: Icon(Icons.arrow_forward),
       ),
