@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tdc_coach_admin/app/constants/image_constants.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
+import 'package:tdc_coach_admin/domain/model/car.dart';
 
 class CarTile extends StatelessWidget {
-  const CarTile({super.key});
+  final Car car;
+  const CarTile({super.key, required this.car});
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +19,15 @@ class CarTile extends StatelessWidget {
       child: ListTile(
         title: Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: Text('Lumindis'),
+          child: Text(car.name),
         ),
-        subtitle: Text('54-V79061'),
+        subtitle: Text(car.licensePlates),
         leading: Container(
           width: 50,
           height: double.infinity,
-          child: Image.asset(ImageConstants.light1Login),
+          child: car.image.isEmpty
+              ? Image.asset(ImageConstants.carIcon)
+              : Image.network(car.image),
         ),
         trailing: Icon(Icons.arrow_forward),
       ),

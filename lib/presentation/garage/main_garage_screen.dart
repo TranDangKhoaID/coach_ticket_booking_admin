@@ -66,10 +66,10 @@ class _MainGarageScreenState extends State<MainGarageScreen> {
         widget = const HomePageScreen();
         break;
       case 1:
-        widget = const CarScreen();
+        widget = CarScreen();
         break;
       case 2:
-        widget = const DriverScreen();
+        widget = DriverScreen();
         break;
       case 3:
         widget = const TopUpScreen();

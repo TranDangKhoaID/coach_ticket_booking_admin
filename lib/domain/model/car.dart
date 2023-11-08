@@ -3,12 +3,14 @@ class Car {
   final String name;
   final String licensePlates;
   final String image;
+  final int status;
 
   Car({
     required this.id,
     required this.name,
     required this.licensePlates,
     required this.image,
+    required this.status,
   });
   Map<String, dynamic> toJson() {
     return {
@@ -16,6 +18,7 @@ class Car {
       'name': name,
       'licensePlates': licensePlates,
       'image': image,
+      'status': status,
     };
   }
 
@@ -26,6 +29,7 @@ class Car {
       name: json['name'],
       licensePlates: json['licensePlates'],
       image: json['image'],
+      status: json['status'],
     );
   }
 }

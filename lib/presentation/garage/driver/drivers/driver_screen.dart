@@ -7,16 +7,12 @@ import 'package:tdc_coach_admin/domain/model/driver.dart';
 import 'package:tdc_coach_admin/presentation/garage/driver/drivers/component/driver_tile.dart';
 import 'package:tdc_coach_admin/presentation/garage/driver/signup_driver/signup_driver.dart';
 
-class DriverScreen extends StatefulWidget {
-  const DriverScreen({super.key});
+class DriverScreen extends StatelessWidget {
+  DriverScreen({super.key});
 
-  @override
-  State<DriverScreen> createState() => _DriverScreenState();
-}
-
-class _DriverScreenState extends State<DriverScreen> {
   final DatabaseReference database =
       FirebaseDatabase.instance.ref().child('drivers');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
