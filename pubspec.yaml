@@ -45,6 +45,7 @@ dependencies:
   dotted_line: ^3.2.2
   firebase_storage: ^11.4.1
   image_picker: ^1.0.4
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
   assets:
     - assets/login/images/
     - assets/car/images/
+    - assets/driver/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -5,9 +5,11 @@ import 'package:tdc_coach_admin/domain/model/driver.dart';
 
 class DriverTile extends StatelessWidget {
   final Driver driver;
+  final void Function()? onTap;
   const DriverTile({
     super.key,
     required this.driver,
+    required this.onTap,
   });
 
   @override
@@ -29,12 +31,20 @@ class DriverTile extends StatelessWidget {
           width: 50,
           height: double.infinity,
           // ignore: unnecessary_null_comparison
-          child: const Icon(
-            Icons.person,
-            size: 50,
-          ),
+          child: driver.image.isEmpty
+              ? Icon(
+                  Icons.person,
+                  size: 50,
+                )
+              : Image.network(
+                  driver.image,
+                  fit: BoxFit.cover,
+                ),
         ),
-        trailing: Icon(Icons.arrow_forward),
+        trailing: GestureDetector(
+          onTap: onTap,
+          child: Icon(Icons.arrow_forward),
+        ),
       ),
     );
   }

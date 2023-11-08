@@ -34,4 +34,18 @@ class Trip {
       carId: json['carId'],
     );
   }
+  //
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'departureDate': departureDate,
+      'departureLocation': departureLocation,
+      'destinationLocation': destinationLocation,
+      'departureTime': departureTime,
+      'destinationTime': destinationTime,
+      'price': price,
+      'driverId': driverId,
+      'carId': carId,
+    };
+  }
 }

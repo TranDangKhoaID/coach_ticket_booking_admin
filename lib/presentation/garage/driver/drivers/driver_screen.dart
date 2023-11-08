@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/driver.dart';
+import 'package:tdc_coach_admin/presentation/garage/driver/detail_driver/detail_driver.dart';
 import 'package:tdc_coach_admin/presentation/garage/driver/drivers/component/driver_tile.dart';
 import 'package:tdc_coach_admin/presentation/garage/driver/signup_driver/signup_driver.dart';
 
@@ -45,7 +46,16 @@ class DriverScreen extends StatelessWidget {
             image: image,
           );
 
-          return DriverTile(driver: driver);
+          return DriverTile(
+            driver: driver,
+            onTap: () {
+              Get.to(
+                () => DetailDriver(
+                  driver: driver,
+                ),
+              );
+            },
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(

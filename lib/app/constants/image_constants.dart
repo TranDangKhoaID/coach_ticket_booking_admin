@@ -9,4 +9,7 @@ class ImageConstants {
   static const String carImages = 'assets/car/images';
   static const String addCar = '$carImages/add_car.png';
   static const String carIcon = '$carImages/car.png';
+  //driver
+  static const String driverImages = 'assets/driver/images';
+  static const String driverIcon = '$driverImages/driver.png';
 }
