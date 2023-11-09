@@ -1,5 +1,5 @@
 class Driver {
-  final String id;
+  String id;
   final String fullName;
   final String email;
   final String phone;
