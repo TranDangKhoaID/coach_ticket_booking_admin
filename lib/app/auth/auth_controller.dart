@@ -33,8 +33,6 @@ class AuthController extends GetxController {
         String emailGarageDB = dataSnapshot.value.toString();
         if (userType.value == '0') {
           if (email == emailGarageDB) {
-            // AppPreferences.instance.setIsLoggedIn();
-            // AppPreferences.instance.saveOptionIsLoggedIn(0);
             isLoggedIn.value = true;
             EasyLoading.dismiss();
           } else {
@@ -43,13 +41,23 @@ class AuthController extends GetxController {
             isLoggedIn.value = false;
           }
         } else {
-          // AppPreferences.instance.setIsLoggedIn();
-          // AppPreferences.instance.saveOptionIsLoggedIn(1);
-          isLoggedIn.value = true;
-          EasyLoading.dismiss();
+          final DataSnapshot snapshot = await databaseReference
+              .child('drivers')
+              .child(userCredential.user!.uid)
+              .child('email')
+              .get();
+          if (snapshot.value == email) {
+            isLoggedIn.value = true;
+            EasyLoading.dismiss();
+          } else {
+            isLoggedIn.value = false;
+            EasyLoading.showError('Bạn không phải tài xế');
+            EasyLoading.dismiss();
+          }
         }
       } else {
         isLoggedIn.value = false;
+        EasyLoading.dismiss();
       }
     } catch (e) {
       // Xử lý lỗi nếu có
