@@ -33,7 +33,7 @@ class TripItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        '16:30',
+                        trip.departureTime,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class TripItem extends StatelessWidget {
                         child: Icon(Icons.arrow_forward),
                       ),
                       Text(
-                        '7:30',
+                        trip.destinationTime,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -87,7 +87,7 @@ class TripItem extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          '100000 đ',
+                          '${trip.price} đ',
                           style: const TextStyle(
                             color: AppColor.white,
                             fontWeight: FontWeight.bold,
@@ -101,21 +101,7 @@ class TripItem extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Lumindis',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: AppColor.white,
-                          ),
-                        ),
-                        const Text(
-                          ' - ',
-                          style: TextStyle(
-                            color: AppColor.white,
-                          ),
-                        ),
-                        Text(
-                          '23/5/2023',
+                          trip.departureDate,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -139,7 +125,7 @@ class TripItem extends StatelessWidget {
                         width: 10,
                       ),
                       Text(
-                        'TP Hồ Chí Minh',
+                        trip.departureLocation,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -166,7 +152,7 @@ class TripItem extends StatelessWidget {
                         width: 10,
                       ),
                       Text(
-                        'Huế',
+                        trip.destinationLocation,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,

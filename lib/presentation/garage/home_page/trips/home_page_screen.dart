@@ -66,6 +66,12 @@ class HomePageScreen extends StatelessWidget {
             driverId: driverId,
             carId: carId,
           );
+          return TripItem(
+            onTap: () {
+              Get.to(() => DetailTripScreen());
+            },
+            trip: trip,
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(

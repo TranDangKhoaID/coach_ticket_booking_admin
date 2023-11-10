@@ -63,7 +63,7 @@ class _MainGarageScreenState extends State<MainGarageScreen> {
     late Widget widget;
     switch (index) {
       case 0:
-        widget = const HomePageScreen();
+        widget = HomePageScreen();
         break;
       case 1:
         widget = CarScreen();
