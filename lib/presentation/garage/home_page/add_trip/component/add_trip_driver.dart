@@ -1,7 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/driver.dart';
 import 'package:tdc_coach_admin/presentation/garage/home_page/add_trip/controller/add_trip_controller.dart';

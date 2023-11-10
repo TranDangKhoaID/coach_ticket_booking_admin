@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tdc_coach_admin/domain/model/location.dart';
 
 class LocationWidget extends StatelessWidget {
-  final String name;
+  final Location location;
   final void Function()? onTap;
   const LocationWidget({
     super.key,
-    required this.name,
+    required this.location,
     required this.onTap,
   });
 
@@ -21,7 +22,7 @@ class LocationWidget extends StatelessWidget {
               padding: EdgeInsets.all(10),
               width: double.infinity,
               child: Text(
-                name,
+                location.name,
                 style: TextStyle(
                   fontSize: 20,
                 ),

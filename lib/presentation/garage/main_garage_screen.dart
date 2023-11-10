@@ -1,10 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:tdc_coach_admin/app/auth/auth_controller.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/presentation/garage/car/cars/car_screen.dart';
 import 'package:tdc_coach_admin/presentation/garage/driver/drivers/driver_screen.dart';
 import 'package:tdc_coach_admin/presentation/garage/home_page/trips/home_page_screen.dart';
+import 'package:tdc_coach_admin/presentation/garage/location/location_screen.dart';
 import 'package:tdc_coach_admin/presentation/garage/top_up/top_up_screen.dart';
 
 class MainGarageScreen extends StatefulWidget {
@@ -30,6 +30,10 @@ class _MainGarageScreenState extends State<MainGarageScreen> {
     ),
     Icon(
       Icons.attach_money,
+      color: AppColor.white,
+    ),
+    Icon(
+      Icons.location_city,
       color: AppColor.white,
     ),
   ];
@@ -73,6 +77,9 @@ class _MainGarageScreenState extends State<MainGarageScreen> {
         break;
       case 3:
         widget = const TopUpScreen();
+        break;
+      case 4:
+        widget = LocationScreen();
         break;
       default:
     }

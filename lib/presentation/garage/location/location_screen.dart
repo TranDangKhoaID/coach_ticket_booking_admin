@@ -3,21 +3,22 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/location.dart';
-import 'package:tdc_coach_admin/presentation/garage/home_page/add_trip/controller/add_trip_controller.dart';
-import 'package:tdc_coach_admin/presentation/garage/home_page/location/component/location_widget.dart';
+import 'package:tdc_coach_admin/presentation/garage/location/component/location_tile.dart';
 
-class LocationDesScreen extends StatelessWidget {
-  LocationDesScreen({super.key});
+class LocationScreen extends StatelessWidget {
+  LocationScreen({super.key});
   final DatabaseReference db =
       FirebaseDatabase.instance.ref().child('locations');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.primary,
       appBar: AppBar(
+        title: Text('Địa điểm'),
         elevation: 0,
-        title: const Text('Chọn địa điểm'),
-        backgroundColor: AppColor.primary,
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
       ),
       body: FirebaseAnimatedList(
         defaultChild: const Center(
@@ -29,13 +30,12 @@ class LocationDesScreen extends StatelessWidget {
           String name = snapshot.child('name').value.toString();
           String address = snapshot.child('address').value.toString();
           final location = Location(id: id, name: name, address: address);
-          return LocationWidget(
-            location: location,
-            onTap: () {
-              AddTripController.instance.selectDesLocation(location.name);
-            },
-          );
+          return LocationTile(location: location);
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
       ),
     );
   }

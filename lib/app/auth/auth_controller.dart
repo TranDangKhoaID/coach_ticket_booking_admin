@@ -28,9 +28,9 @@ class AuthController extends GetxController {
 
       // Kiểm tra xem đăng nhập thành công
       if (userCredential.user != null) {
-        DataSnapshot dataSnapshot =
+        final DataSnapshot snapshot =
             await databaseReference.child("garage").child('email').get();
-        String emailGarageDB = dataSnapshot.value.toString();
+        String emailGarageDB = snapshot.value.toString();
         if (userType.value == '0') {
           if (email == emailGarageDB) {
             isLoggedIn.value = true;
