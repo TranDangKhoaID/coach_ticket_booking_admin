@@ -1,12 +1,15 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
+import 'package:tdc_coach_admin/domain/model/trip.dart';
 
 class TripItem extends StatelessWidget {
+  final Trip trip;
   final void Function()? onTap;
   const TripItem({
     super.key,
     required this.onTap,
+    required this.trip,
   });
 
   @override

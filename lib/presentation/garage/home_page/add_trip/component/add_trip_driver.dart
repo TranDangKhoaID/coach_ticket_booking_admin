@@ -4,31 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/driver.dart';
-import 'package:tdc_coach_admin/presentation/garage/driver/detail_driver/detail_driver.dart';
-import 'package:tdc_coach_admin/presentation/garage/driver/drivers/component/driver_tile.dart';
-import 'package:tdc_coach_admin/presentation/garage/driver/signup_driver/signup_driver.dart';
+import 'package:tdc_coach_admin/presentation/garage/home_page/add_trip/controller/add_trip_controller.dart';
 
-class DriverScreen extends StatelessWidget {
-  DriverScreen({super.key});
-
-  final DatabaseReference database =
-      FirebaseDatabase.instance.ref().child('drivers');
-
+class AddTripDriver extends StatelessWidget {
+  AddTripDriver({super.key});
+  final DatabaseReference db = FirebaseDatabase.instance.ref().child('drivers');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Danh sách tài xế'),
+        title: Text('Chọn tài xế'),
         elevation: 0,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
+        backgroundColor: AppColor.primary,
       ),
-      backgroundColor: AppColor.primary,
       body: FirebaseAnimatedList(
-        defaultChild: const Center(
+        defaultChild: Center(
           child: CircularProgressIndicator(),
         ),
-        query: database,
+        query: db,
         itemBuilder: (context, snapshot, animation, index) {
           String id = snapshot.child('id').value.toString();
           String email = snapshot.child('email').value.toString();
@@ -46,23 +39,46 @@ class DriverScreen extends StatelessWidget {
             image: image,
           );
 
-          return DriverTile(
+          return AddTripDriverTile(
             driver: driver,
             onTap: () {
-              Get.to(
-                () => DetailDriver(
-                  driver: driver,
-                ),
+              AddTripController.instance.selectDriver(
+                driver.fullName,
+                driver.id,
               );
             },
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.to(() => SignUpDriver());
-        },
-        child: const Icon(Icons.add),
+    );
+  }
+}
+
+class AddTripDriverTile extends StatelessWidget {
+  final Driver driver;
+  final void Function()? onTap;
+  const AddTripDriverTile({
+    super.key,
+    required this.driver,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(15),
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: AppColor.primary[100],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: ListTile(
+        onTap: onTap,
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Text(driver.fullName),
+        ),
+        subtitle: Text(driver.phone),
       ),
     );
   }

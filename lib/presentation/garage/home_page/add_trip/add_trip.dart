@@ -1,17 +1,16 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
-import 'package:tdc_coach_admin/domain/model/driver.dart';
+import 'package:tdc_coach_admin/presentation/garage/home_page/add_trip/component/add_trip_car.dart';
+import 'package:tdc_coach_admin/presentation/garage/home_page/add_trip/component/add_trip_driver.dart';
 import 'package:tdc_coach_admin/presentation/garage/home_page/add_trip/component/bottom_navigation_button.dart';
 import 'package:tdc_coach_admin/presentation/garage/home_page/add_trip/controller/add_trip_controller.dart';
 import 'package:tdc_coach_admin/presentation/garage/home_page/location/location_depart_screeen.dart';
 import 'package:tdc_coach_admin/presentation/garage/home_page/location/location_des_screen.dart';
 
 class AddTrip extends StatefulWidget {
-  AddTrip({super.key});
+  const AddTrip({super.key});
 
   @override
   State<AddTrip> createState() => _AddTripState();
@@ -200,8 +199,12 @@ class _AddTripState extends State<AddTrip> {
                       Obx(() {
                         final selectedTime =
                             AddTripController.instance.selectedDepartTime.value;
+                        int minute = selectedTime.minute;
+                        final formattedMinute =
+                            minute < 10 ? '0$minute' : '$minute';
                         final formattedTime =
-                            '${selectedTime.hour}:${selectedTime.minute}';
+                            '${selectedTime.hour}:$formattedMinute';
+
                         return Text(
                           formattedTime,
                           style: TextStyle(
@@ -338,27 +341,74 @@ class _AddTripState extends State<AddTrip> {
                   ),
                   Expanded(
                     flex: 2,
-                    child: Obx(
-                      () {
-                        return Container(
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: AppColor.primary,
-                            border: Border.all(
-                              color: Colors.grey,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(15),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.to(() => AddTripDriver());
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: AppColor.primary,
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 1,
                           ),
-                          child: Text(
-                            'Đặng Cao Đại',
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Obx(
+                          () => Text(
+                            AddTripController.instance.driverName.value,
                             style: TextStyle(
                               fontSize: 17,
                               color: AppColor.white,
                             ),
                           ),
-                        );
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Xe',
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: AppColor.white,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.to(() => AddTripCar());
                       },
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: AppColor.primary,
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Obx(
+                          () => Text(
+                            AddTripController.instance.carName.value,
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: AppColor.white,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -369,7 +419,7 @@ class _AddTripState extends State<AddTrip> {
       ),
       bottomNavigationBar: BottomNavButton(
         onTap: () {
-          print('');
+          AddTripController.instance.addTrip(price: price.text.trim());
         },
       ),
     );
