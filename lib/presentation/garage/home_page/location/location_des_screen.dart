@@ -32,7 +32,10 @@ class LocationDesScreen extends StatelessWidget {
           return LocationWidget(
             location: location,
             onTap: () {
-              AddTripController.instance.selectDesLocation(location.name);
+              AddTripController.instance.selectDesLocation(
+                location.name,
+                location.id,
+              );
             },
           );
         },

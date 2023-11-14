@@ -16,6 +16,8 @@ class AddTripController extends GetxController {
 
   var departLocation = 'Điểm đi'.obs;
   var desLocation = 'Điểm đến'.obs;
+  var departId = '0'.obs;
+  var desId = '0'.obs;
   // Biến để lưu tài xế
   var driverName = 'Chọn tài xế'.obs;
   var driverId = ''.obs;
@@ -25,13 +27,15 @@ class AddTripController extends GetxController {
   // Hàm để lấy dữ liệu từ Firebase
 
   // Hàm để chọn địa điểm
-  void selectDepartLocation(String location) {
+  void selectDepartLocation(String location, String id) {
     departLocation.value = location;
+    departId.value = id;
     Get.back(); // Để trở về màn hình trước
   }
 
-  void selectDesLocation(String location) {
+  void selectDesLocation(String location, String id) {
     desLocation.value = location;
+    desId.value = id;
     Get.back();
   }
 
@@ -90,8 +94,8 @@ class AddTripController extends GetxController {
       final trip = Trip(
         id: idTrip,
         departureDate: formattedDate,
-        departureLocation: departLocation.value,
-        destinationLocation: desLocation.value,
+        departureLocation: departId.value,
+        destinationLocation: desId.value,
         departureTime: formattedDepartTime,
         destinationTime: formattedDesTime,
         price: int.parse(price),
@@ -101,6 +105,7 @@ class AddTripController extends GetxController {
       await database.child('trips').child(idTrip).set(trip.toJson());
       EasyLoading.dismiss();
       EasyLoading.showSuccess('Thành công!');
+      Get.back();
     } catch (e) {
       EasyLoading.dismiss();
       EasyLoading.showError(e.toString());

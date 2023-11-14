@@ -68,7 +68,11 @@ class HomePageScreen extends StatelessWidget {
           );
           return TripItem(
             onTap: () {
-              Get.to(() => DetailTripScreen());
+              Get.to(
+                () => DetailTripScreen(
+                  trip: trip,
+                ),
+              );
             },
             trip: trip,
           );

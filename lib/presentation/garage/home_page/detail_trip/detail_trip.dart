@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
+import 'package:tdc_coach_admin/domain/model/trip.dart';
 
-class DetailTripScreen extends StatefulWidget {
+class DetailTripScreen extends StatelessWidget {
+  final Trip trip;
   const DetailTripScreen({
     super.key,
+    required this.trip,
   });
-  @override
-  State<DetailTripScreen> createState() => _DetailTripScreenState();
-}
-
-class _DetailTripScreenState extends State<DetailTripScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,7 +137,7 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                         ),
                       ),
                       Text(
-                        '16:30',
+                        trip.departureTime,
                         style: TextStyle(
                           fontSize: 16,
                         ),
@@ -162,14 +160,14 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                       Row(
                         children: [
                           Text(
-                            'TP Hồ Chí Minh',
+                            trip.departureLocation,
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
                           Icon(Icons.arrow_right),
                           Text(
-                            'Huế',
+                            trip.destinationLocation,
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -192,7 +190,7 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                         ),
                       ),
                       Text(
-                        '23/5/2023',
+                        trip.departureDate,
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.green[700],
@@ -291,7 +289,7 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                               ),
                               Spacer(),
                               Text(
-                                '300.000 đ',
+                                '${trip.price} đ',
                                 style: TextStyle(
                                   fontSize: 17,
                                 ),

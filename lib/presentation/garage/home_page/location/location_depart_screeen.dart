@@ -32,7 +32,10 @@ class LocationDepartScreen extends StatelessWidget {
           return LocationWidget(
             location: location,
             onTap: () {
-              AddTripController.instance.selectDepartLocation(location.name);
+              AddTripController.instance.selectDepartLocation(
+                location.name,
+                location.id,
+              );
             },
           );
         },
