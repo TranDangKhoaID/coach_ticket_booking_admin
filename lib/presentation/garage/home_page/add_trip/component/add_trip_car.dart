@@ -35,15 +35,19 @@ class AddTripCar extends StatelessWidget {
             image: image,
             status: status,
           );
-          return AddTripCarTile(
-            car: car,
-            onTap: () {
-              AddTripController.instance.selectCar(
-                car.name,
-                car.id,
-              );
-            },
-          );
+          if (car.status == 0) {
+            return AddTripCarTile(
+              car: car,
+              onTap: () {
+                AddTripController.instance.selectCar(
+                  car.name,
+                  car.id,
+                );
+              },
+            );
+          } else {
+            return Container();
+          }
         },
       ),
     );

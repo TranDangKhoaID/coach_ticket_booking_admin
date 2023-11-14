@@ -55,6 +55,7 @@ class TFSignUpDriverWidget extends StatelessWidget {
           ),
           child: TextField(
             controller: phone,
+            keyboardType: TextInputType.number,
             style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
               border: InputBorder.none,

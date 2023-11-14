@@ -20,6 +20,15 @@ class _AddTripState extends State<AddTrip> {
   final price = TextEditingController();
 
   @override
+  void dispose() {
+    super.dispose();
+    AddTripController.instance.driverName.value = 'Chọn tài xế';
+    AddTripController.instance.driverId.value = '';
+    AddTripController.instance.carName.value = 'Chọn xe';
+    AddTripController.instance.carId.value = '';
+  }
+
+  @override
   void initState() {
     super.initState();
   }

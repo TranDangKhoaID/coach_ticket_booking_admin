@@ -103,6 +103,11 @@ class AddTripController extends GetxController {
         carId: carId.value,
       );
       await database.child('trips').child(idTrip).set(trip.toJson());
+      await database.child('cars').child(carId.value).update({'status': 1});
+      await database
+          .child('drivers')
+          .child(driverId.value)
+          .update({'status': 1});
       EasyLoading.dismiss();
       EasyLoading.showSuccess('Thành công!');
       Get.back();

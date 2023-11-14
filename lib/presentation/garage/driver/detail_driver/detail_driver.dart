@@ -209,6 +209,70 @@ class DetailDriver extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          'CCCD Mặt Trước',
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: AppColor.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1,
+                              color: AppColor.white,
+                            ),
+                          ),
+                          child: Image.network(
+                            driver.imageFrontID,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          'CCCD Mặt Sau',
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: AppColor.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1,
+                              color: AppColor.white,
+                            ),
+                          ),
+                          child: Image.network(
+                            driver.imageBackSideID,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
               )
             ],
           ),

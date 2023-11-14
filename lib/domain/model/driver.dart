@@ -5,6 +5,8 @@ class Driver {
   final String phone;
   final String drivingLicense;
   final String image;
+  final String imageFrontID;
+  final String imageBackSideID;
   final int status;
 
   Driver({
@@ -14,6 +16,8 @@ class Driver {
     required this.phone,
     required this.drivingLicense,
     required this.image,
+    required this.imageFrontID,
+    required this.imageBackSideID,
     required this.status,
   });
 
@@ -25,6 +29,8 @@ class Driver {
       phone: json['phone'],
       drivingLicense: json['drivingLicense'],
       image: json['image'],
+      imageFrontID: json['imageFrontID'],
+      imageBackSideID: json['imageBackSideID'],
       status: json['status'],
     );
   }
@@ -37,6 +43,8 @@ class Driver {
       'phone': phone,
       'drivingLicense': drivingLicense,
       'image': image,
+      'imageFrontID': imageFrontID,
+      'imageBackSideID': imageBackSideID,
       'status': status,
     };
   }

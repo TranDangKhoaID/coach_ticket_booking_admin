@@ -48,7 +48,13 @@ class SignupDriverController extends GetxController {
     required String drivingLicense,
   }) async {
     EasyLoading.show(status: 'Đang tải');
+
     try {
+      if (imageFrontID.value == null || imageBackSide.value == null) {
+        EasyLoading.dismiss();
+        EasyLoading.showError('Vui lòng chọn ảnh!');
+        return;
+      }
       if (email.isEmpty ||
           password.isEmpty ||
           fullName.isEmpty ||
@@ -63,7 +69,20 @@ class SignupDriverController extends GetxController {
         email: email,
         password: password,
       );
+      //add image
+      String uniqueFrontID =
+          'front-${DateTime.now().millisecondsSinceEpoch}.jpg';
+      String uniqueBackSideID =
+          'backside-${DateTime.now().millisecondsSinceEpoch}.jpg';
       String idDriver = userCredential.user!.uid;
+      final storageDirImage = storage.child('drivers').child(idDriver);
+      final storageFrontIDToUpLoad = storageDirImage.child(uniqueFrontID);
+      final storageBackSideIDToUpLoad = storageDirImage.child(uniqueBackSideID);
+      await storageFrontIDToUpLoad.putFile(File(imageFrontID.value!.path));
+      imgUrlFrontID = await storageFrontIDToUpLoad.getDownloadURL();
+      await storageBackSideIDToUpLoad.putFile(File(imageBackSide.value!.path));
+      imgUrlBackSide = await storageBackSideIDToUpLoad.getDownloadURL();
+      //
       final driver = Driver(
         id: idDriver,
         fullName: fullName,
@@ -71,6 +90,8 @@ class SignupDriverController extends GetxController {
         phone: phone,
         drivingLicense: drivingLicense,
         image: "",
+        imageFrontID: imgUrlFrontID,
+        imageBackSideID: imgUrlBackSide,
         status: 0,
       );
       await databaseReference
@@ -79,6 +100,7 @@ class SignupDriverController extends GetxController {
           .set(driver.toJson());
       EasyLoading.dismiss();
       EasyLoading.showSuccess('Tạo tài khoản thành công');
+      Get.back();
     } on FirebaseAuthException catch (e) {
       final errorMessage = e.toString(); // Extract error message from Firebase
       EasyLoading.dismiss();
