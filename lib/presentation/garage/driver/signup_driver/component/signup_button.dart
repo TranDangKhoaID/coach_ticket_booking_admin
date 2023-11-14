@@ -17,6 +17,7 @@ class BTNSignUpDriverWidget extends StatelessWidget {
         height: 60,
         alignment: Alignment.center,
         padding: EdgeInsets.all(8),
+        margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),
           color: AppColor.primary[700],

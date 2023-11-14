@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tdc_coach_admin/domain/model/driver.dart';
 
 class SignupDriverController extends GetxController {
@@ -9,6 +13,32 @@ class SignupDriverController extends GetxController {
   //email, password, name...
   FirebaseAuth auth = FirebaseAuth.instance;
   final databaseReference = FirebaseDatabase.instance.ref();
+  //fire base storage
+  final storage = FirebaseStorage.instance.ref();
+  //
+  final ImagePicker _imagePicker = ImagePicker();
+  Rx<File?> imageFrontID = Rx<File?>(null);
+  Rx<File?> imageBackSide = Rx<File?>(null);
+  String imgUrlFrontID = '';
+  String imgUrlBackSide = '';
+
+  Future<void> pickImageFrontID() async {
+    final pickedFile = await _imagePicker.pickImage(source: ImageSource.camera);
+
+    if (pickedFile != null) {
+      imageFrontID.value = File(pickedFile.path);
+      //print('Ảnh${image.value}');
+    }
+  }
+
+  Future<void> pickImageBackSideID() async {
+    final pickedFile = await _imagePicker.pickImage(source: ImageSource.camera);
+
+    if (pickedFile != null) {
+      imageBackSide.value = File(pickedFile.path);
+      //print('Ảnh${image.value}');
+    }
+  }
 
   Future<void> signUp({
     required String email,
@@ -41,6 +71,7 @@ class SignupDriverController extends GetxController {
         phone: phone,
         drivingLicense: drivingLicense,
         image: "",
+        status: 0,
       );
       await databaseReference
           .child('drivers')

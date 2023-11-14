@@ -37,6 +37,7 @@ class DriverScreen extends StatelessWidget {
           String drivingLicense =
               snapshot.child('drivingLicense').value.toString();
           String image = snapshot.child('image').value.toString();
+          String status = snapshot.child('status').value.toString();
           final driver = Driver(
             id: id,
             fullName: fullName,
@@ -44,6 +45,7 @@ class DriverScreen extends StatelessWidget {
             phone: phone,
             drivingLicense: drivingLicense,
             image: image,
+            status: int.parse(status),
           );
 
           return DriverTile(
