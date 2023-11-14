@@ -1,13 +1,36 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/trip.dart';
 
-class DetailTripScreen extends StatelessWidget {
+class DetailTripScreen extends StatefulWidget {
   final Trip trip;
   const DetailTripScreen({
     super.key,
     required this.trip,
   });
+
+  @override
+  State<DetailTripScreen> createState() => _DetailTripScreenState();
+}
+
+class _DetailTripScreenState extends State<DetailTripScreen> {
+  DatabaseReference db = FirebaseDatabase.instance.ref();
+  String departure = 'Loading...';
+  String destination = 'Loading...';
+  String driverName = 'Loading...';
+  String driverEmail = 'Loading...';
+  String driverPhone = 'Loading...';
+  String carName = 'Loading...';
+  String carlicensePlates = 'Loading...';
+  @override
+  void initState() {
+    super.initState();
+    fetchLocation();
+    fetchDriver();
+    fetchCar();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +75,7 @@ class DetailTripScreen extends StatelessWidget {
                       ),
                       Spacer(),
                       Text(
-                        'Cao Đại',
+                        driverName,
                         style: TextStyle(
                           fontSize: 16,
                         ),
@@ -74,7 +97,7 @@ class DetailTripScreen extends StatelessWidget {
                       ),
                       Spacer(),
                       Text(
-                        '0902833245',
+                        driverPhone,
                         style: TextStyle(
                           fontSize: 16,
                         ),
@@ -96,7 +119,7 @@ class DetailTripScreen extends StatelessWidget {
                       ),
                       Spacer(),
                       Text(
-                        'dai@gmail.com',
+                        driverEmail,
                         style: TextStyle(
                           fontSize: 15,
                         ),
@@ -137,7 +160,7 @@ class DetailTripScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        trip.departureTime,
+                        widget.trip.departureTime,
                         style: TextStyle(
                           fontSize: 16,
                         ),
@@ -160,14 +183,14 @@ class DetailTripScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            trip.departureLocation,
+                            departure,
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
                           Icon(Icons.arrow_right),
                           Text(
-                            trip.destinationLocation,
+                            destination,
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -190,7 +213,7 @@ class DetailTripScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        trip.departureDate,
+                        widget.trip.departureDate,
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.green[700],
@@ -213,7 +236,7 @@ class DetailTripScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Lumindis',
+                        carName.toUpperCase(),
                         style: TextStyle(
                           fontSize: 16,
                         ),
@@ -234,7 +257,7 @@ class DetailTripScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '54-V79061',
+                        carlicensePlates,
                         style: TextStyle(
                           fontSize: 16,
                         ),
@@ -289,7 +312,7 @@ class DetailTripScreen extends StatelessWidget {
                               ),
                               Spacer(),
                               Text(
-                                '${trip.price} đ',
+                                '${widget.trip.price} đ',
                                 style: TextStyle(
                                   fontSize: 17,
                                 ),
@@ -307,5 +330,57 @@ class DetailTripScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> fetchCar() async {
+    DataSnapshot snapshotName =
+        await db.child('cars').child(widget.trip.carId).child('name').get();
+    DataSnapshot snapshotLicensePlates = await db
+        .child('cars')
+        .child(widget.trip.carId)
+        .child('licensePlates')
+        .get();
+
+    carName = snapshotName.value.toString();
+    carlicensePlates = snapshotLicensePlates.value.toString();
+    setState(() {});
+  }
+
+  Future<void> fetchDriver() async {
+    DataSnapshot snapshotName = await db
+        .child('drivers')
+        .child(widget.trip.driverId)
+        .child('fullName')
+        .get();
+    DataSnapshot snapshotEmail = await db
+        .child('drivers')
+        .child(widget.trip.driverId)
+        .child('email')
+        .get();
+    DataSnapshot snapshotPhone = await db
+        .child('drivers')
+        .child(widget.trip.driverId)
+        .child('phone')
+        .get();
+    driverName = snapshotName.value.toString();
+    driverEmail = snapshotEmail.value.toString();
+    driverPhone = snapshotPhone.value.toString();
+    setState(() {});
+  }
+
+  Future<void> fetchLocation() async {
+    DataSnapshot snapshotDepart = await db
+        .child('locations')
+        .child(widget.trip.departureLocation)
+        .child('name')
+        .get();
+    DataSnapshot snapshotDes = await db
+        .child('locations')
+        .child(widget.trip.destinationLocation)
+        .child('name')
+        .get();
+    departure = snapshotDepart.value.toString();
+    destination = snapshotDes.value.toString();
+    setState(() {});
   }
 }

@@ -1,10 +1,50 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
+import 'package:tdc_coach_admin/domain/model/top_up.dart';
 
-class PaymentItem extends StatelessWidget {
+class PaymentItem extends StatefulWidget {
+  final TopUp topUp;
   const PaymentItem({
     super.key,
+    required this.topUp,
   });
+
+  @override
+  State<PaymentItem> createState() => _PaymentItemState();
+}
+
+class _PaymentItemState extends State<PaymentItem> {
+  DatabaseReference db = FirebaseDatabase.instance.ref();
+  String userName = 'Loading...';
+  String userPhone = 'Loading...';
+
+  Future<void> fectUser() async {
+    try {
+      DataSnapshot snapshotName = await db
+          .child('customers')
+          .child(widget.topUp.idUser)
+          .child('fullName')
+          .get();
+      DataSnapshot snapshotPhone = await db
+          .child('customers')
+          .child(widget.topUp.idUser)
+          .child('fullName')
+          .get();
+      userName = snapshotName.value.toString();
+      userPhone = snapshotPhone.value.toString();
+      setState(() {});
+    } catch (e) {
+      EasyLoading.showError(e.toString());
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fectUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +59,13 @@ class PaymentItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Trần Đăng Khoa',
+            userName,
             style: TextStyle(
               color: AppColor.white,
             ),
           ),
           Text(
-            '0902800234',
+            userPhone,
             style: TextStyle(
               color: AppColor.white,
             ),
@@ -40,7 +80,24 @@ class PaymentItem extends StatelessWidget {
                 ),
               ),
               Text(
-                '100.000 đ',
+                widget.topUp.money.toString(),
+                style: TextStyle(
+                  color: AppColor.white,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                'Phương thức: ',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: AppColor.white,
+                ),
+              ),
+              Text(
+                widget.topUp.paymentMethod,
                 style: TextStyle(
                   color: AppColor.white,
                 ),
@@ -57,7 +114,7 @@ class PaymentItem extends StatelessWidget {
                 ),
               ),
               Text(
-                'Nạp 1000000 vao 090234456 tdc coach',
+                widget.topUp.payContent,
                 style: TextStyle(
                   color: AppColor.white,
                 ),

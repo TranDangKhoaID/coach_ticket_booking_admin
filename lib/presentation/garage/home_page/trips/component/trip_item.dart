@@ -1,9 +1,10 @@
 import 'package:dotted_line/dotted_line.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/trip.dart';
 
-class TripItem extends StatelessWidget {
+class TripItem extends StatefulWidget {
   final Trip trip;
   final void Function()? onTap;
   const TripItem({
@@ -11,6 +12,36 @@ class TripItem extends StatelessWidget {
     required this.onTap,
     required this.trip,
   });
+
+  @override
+  State<TripItem> createState() => _TripItemState();
+}
+
+class _TripItemState extends State<TripItem> {
+  DatabaseReference db = FirebaseDatabase.instance.ref();
+  String departure = 'Loading...';
+  String destination = 'Loading...';
+  Future<void> fetchLocation() async {
+    DataSnapshot snapshotDepart = await db
+        .child('locations')
+        .child(widget.trip.departureLocation)
+        .child('name')
+        .get();
+    DataSnapshot snapshotDes = await db
+        .child('locations')
+        .child(widget.trip.destinationLocation)
+        .child('name')
+        .get();
+    departure = snapshotDepart.value.toString();
+    destination = snapshotDes.value.toString();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +64,7 @@ class TripItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        trip.departureTime,
+                        widget.trip.departureTime,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -46,7 +77,7 @@ class TripItem extends StatelessWidget {
                         child: Icon(Icons.arrow_forward),
                       ),
                       Text(
-                        trip.destinationTime,
+                        widget.trip.destinationTime,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -54,27 +85,10 @@ class TripItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        Icons.accessible,
-                        color: AppColor.primary,
-                      ),
-                      Icon(
-                        Icons.wifi,
-                        color: AppColor.primary,
-                      ),
-                      Icon(
-                        Icons.bed,
-                        color: AppColor.primary,
-                      ),
-                    ],
-                  ),
                 ],
               ),
               GestureDetector(
-                onTap: onTap,
+                onTap: widget.onTap,
                 child: Container(
                   margin: const EdgeInsets.symmetric(vertical: 8),
                   decoration: BoxDecoration(
@@ -87,7 +101,7 @@ class TripItem extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          '${trip.price} đ',
+                          '${widget.trip.price} đ',
                           style: const TextStyle(
                             color: AppColor.white,
                             fontWeight: FontWeight.bold,
@@ -101,7 +115,7 @@ class TripItem extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          trip.departureDate,
+                          widget.trip.departureDate,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -125,7 +139,7 @@ class TripItem extends StatelessWidget {
                         width: 10,
                       ),
                       Text(
-                        trip.departureLocation,
+                        departure,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -152,7 +166,7 @@ class TripItem extends StatelessWidget {
                         width: 10,
                       ),
                       Text(
-                        trip.destinationLocation,
+                        destination,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,

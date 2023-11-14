@@ -18,6 +18,13 @@ class AddCarController extends GetxController {
   final ImagePicker _imagePicker = ImagePicker();
   Rx<File?> image = Rx<File?>(null);
   String imgUrl = '';
+  var dropDownvalue = 'limousine'.obs;
+
+  void dropDownCallBack(String? selectedValue) {
+    if (selectedValue is String) {
+      dropDownvalue.value = selectedValue;
+    }
+  }
 
   Future<void> pickImage() async {
     final pickedFile =
@@ -30,7 +37,6 @@ class AddCarController extends GetxController {
   }
 
   Future<void> addCarFireBaseDatabase({
-    required String name,
     required String licensePlates,
   }) async {
     EasyLoading.show(status: 'Đang tải...');
@@ -49,15 +55,22 @@ class AddCarController extends GetxController {
       String idCar = 'car${databaseReference.child('cars').push().key}';
       final car = Car(
         id: idCar,
-        name: name,
+        name: dropDownvalue.value.toUpperCase(),
         licensePlates: licensePlates,
         image: imgUrl,
         status: 0,
       );
       await databaseReference.child('cars').child(idCar).set(car.toJson());
-      await addSeatFromCar(idCar: idCar);
+      if (dropDownvalue.value.endsWith('limousine')) {
+        await addSeatFromCar(idCar: idCar, seatCount: 15);
+      } else if (dropDownvalue.value.endsWith('coaches')) {
+        await addSeatFromCar(idCar: idCar, seatCount: 10);
+      } else {
+        await addSeatFromCar(idCar: idCar, seatCount: 12);
+      }
       EasyLoading.dismiss();
       EasyLoading.showSuccess('Thành công!');
+      Get.back();
       //print('Link ảnh: $imgUrl');
     } catch (e) {
       EasyLoading.dismiss();
@@ -67,6 +80,7 @@ class AddCarController extends GetxController {
 
   Future<void> addSeatFromCar({
     required String idCar,
+    required int seatCount,
   }) async {
     if (idCar.isEmpty) {
       return;
@@ -74,9 +88,9 @@ class AddCarController extends GetxController {
     try {
       // Tạo danh sách ghế
       List<Seat> seats = [];
-      for (int i = 1; i <= 15; i++) {
+      for (int i = 1; i <= seatCount; i++) {
         String idSeat = 'seat$i';
-        Set<int> usedCodes = Set<int>();
+        Set<int> usedCodes = <int>{};
         int uniqueRandomCode = generateUniqueRandomSeatCode(usedCodes);
         final seat = Seat(
           id: idSeat, // Tạo id ghế theo số thứ tự

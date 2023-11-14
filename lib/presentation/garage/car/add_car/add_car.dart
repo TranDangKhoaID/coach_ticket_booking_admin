@@ -14,7 +14,6 @@ class AddCar extends StatefulWidget {
 }
 
 class _AddCarState extends State<AddCar> {
-  final name = TextEditingController();
   final licensePlates = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -84,11 +83,37 @@ class _AddCarState extends State<AddCar> {
                           color: AppColor.white,
                         ),
                       ),
-                      child: TextField(
-                        controller: name,
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
+                      child: Obx(
+                        () => DropdownButton(
+                          isExpanded: true,
+                          iconSize: 42.0,
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: AppColor.white,
+                          ),
+                          value: AddCarController.instance.dropDownvalue.value,
+                          items: const [
+                            DropdownMenuItem(
+                              value: "limousine",
+                              child: Text('Limousine (15 chỗ)'),
+                            ),
+                            DropdownMenuItem(
+                              value: "coaches",
+                              child: Text('Coaches (10 chỗ)'),
+                            ),
+                            DropdownMenuItem(
+                              value: "sleeper",
+                              child: Text('Sleeper (12 chỗ)'),
+                            )
+                          ],
+                          onChanged: AddCarController.instance.dropDownvalue,
+                          style: const TextStyle(
+                            color: AppColor.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                          underline: const SizedBox(),
+                          dropdownColor: AppColor.secondary,
                         ),
                       ),
                     ),
@@ -136,7 +161,6 @@ class _AddCarState extends State<AddCar> {
               GestureDetector(
                 onTap: () {
                   AddCarController.instance.addCarFireBaseDatabase(
-                    name: name.text,
                     licensePlates: licensePlates.text,
                   );
                 },
