@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:tdc_coach_admin/app/auth/auth.dart';
 import 'package:tdc_coach_admin/app/auth/auth_controller.dart';
 import 'package:tdc_coach_admin/app/storage/app_shared.dart';
-import 'package:tdc_coach_admin/presentation/driver/home_driver_screen.dart';
+import 'package:tdc_coach_admin/presentation/driver/home_page/home_driver_screen.dart';
 import 'package:tdc_coach_admin/presentation/garage/driver/signup_driver/signup_driver.dart';
 import 'package:tdc_coach_admin/presentation/garage/home_page/detail_trip/detail_trip.dart';
 import 'package:tdc_coach_admin/presentation/garage/main_garage_screen.dart';
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       builder: EasyLoading.init(),
-      home: MainGarageScreen(),
+      home: AuthPage(),
     );
   }
 }

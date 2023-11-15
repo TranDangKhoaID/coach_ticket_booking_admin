@@ -3,6 +3,7 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tdc_coach_admin/app/auth/auth_controller.dart';
+import 'package:tdc_coach_admin/app/helpers/dialog_helper.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/trip.dart';
 import 'package:tdc_coach_admin/presentation/garage/home_page/add_trip/add_trip.dart';
@@ -23,14 +24,18 @@ class HomePageScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: AppColor.primary,
         actions: [
-          GestureDetector(
-            onTap: () {
-              AuthController.instance.logout();
+          IconButton(
+            onPressed: () {
+              DialogHelper.showConfirmDialog(
+                context: context,
+                onPressConfirm: () {
+                  AuthController.instance.logout();
+                },
+                message: 'Đăng xuất ?',
+              );
             },
-            child: Container(
-              child: Icon(Icons.logout),
-            ),
-          )
+            icon: const Icon(Icons.logout),
+          ),
         ],
       ),
       body: FirebaseAnimatedList(
