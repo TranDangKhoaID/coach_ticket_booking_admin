@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/trip.dart';
 
@@ -39,18 +40,18 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: AppColor.primary,
-        title: Text('Thông tin chuyến'),
+        title: const Text('Thông tin chuyến'),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               color: AppColor.white,
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Thông tin tài xế',
@@ -60,67 +61,67 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Họ tên',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Text(
                         driverName,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Số điện thoại',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Text(
                         driverPhone,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Email',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Text(
                         driverEmail,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 15,
                         ),
                       ),
@@ -130,9 +131,9 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               color: AppColor.white,
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
                   Align(
@@ -146,13 +147,13 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Giờ xuất phát',
                         style: TextStyle(
                           fontSize: 16,
@@ -161,19 +162,19 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                       ),
                       Text(
                         widget.trip.departureTime,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Địa điểm',
                         style: TextStyle(
                           fontSize: 16,
@@ -184,14 +185,14 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                         children: [
                           Text(
                             departure,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                             ),
                           ),
-                          Icon(Icons.arrow_right),
+                          const Icon(Icons.arrow_right),
                           Text(
                             destination,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                             ),
                           ),
@@ -199,13 +200,13 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Thời gian',
                         style: TextStyle(
                           fontSize: 16,
@@ -222,13 +223,13 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Tên xe',
                         style: TextStyle(
                           fontSize: 16,
@@ -237,19 +238,19 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                       ),
                       Text(
                         carName.toUpperCase(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Biển số xe',
                         style: TextStyle(
                           fontSize: 16,
@@ -258,16 +259,16 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                       ),
                       Text(
                         carlicensePlates,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -286,16 +287,16 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     width: double.infinity,
                     color: AppColor.white,
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Container(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
-                        borderRadius: BorderRadius.all(
+                        borderRadius: const BorderRadius.all(
                           Radius.circular(10),
                         ),
                       ),
@@ -310,10 +311,10 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                                   color: Colors.grey[600],
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 '${widget.trip.price} đ',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 17,
                                 ),
                               ),
@@ -333,39 +334,51 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
   }
 
   Future<void> fetchCar() async {
-    DataSnapshot snapshotName =
-        await db.child('cars').child(widget.trip.carId).child('name').get();
-    DataSnapshot snapshotLicensePlates = await db
-        .child('cars')
-        .child(widget.trip.carId)
-        .child('licensePlates')
-        .get();
+    try {
+      DataSnapshot snapshotName =
+          await db.child('cars').child(widget.trip.carId).child('name').get();
+      DataSnapshot snapshotLicensePlates = await db
+          .child('cars')
+          .child(widget.trip.carId)
+          .child('licensePlates')
+          .get();
 
-    carName = snapshotName.value.toString();
-    carlicensePlates = snapshotLicensePlates.value.toString();
-    setState(() {});
+      if (mounted) {
+        carName = snapshotName.value.toString();
+        carlicensePlates = snapshotLicensePlates.value.toString();
+        setState(() {});
+      }
+    } catch (e) {
+      EasyLoading.showError(e.toString());
+    }
   }
 
   Future<void> fetchDriver() async {
-    DataSnapshot snapshotName = await db
-        .child('drivers')
-        .child(widget.trip.driverId)
-        .child('fullName')
-        .get();
-    DataSnapshot snapshotEmail = await db
-        .child('drivers')
-        .child(widget.trip.driverId)
-        .child('email')
-        .get();
-    DataSnapshot snapshotPhone = await db
-        .child('drivers')
-        .child(widget.trip.driverId)
-        .child('phone')
-        .get();
-    driverName = snapshotName.value.toString();
-    driverEmail = snapshotEmail.value.toString();
-    driverPhone = snapshotPhone.value.toString();
-    setState(() {});
+    try {
+      DataSnapshot snapshotName = await db
+          .child('drivers')
+          .child(widget.trip.driverId)
+          .child('fullName')
+          .get();
+      DataSnapshot snapshotEmail = await db
+          .child('drivers')
+          .child(widget.trip.driverId)
+          .child('email')
+          .get();
+      DataSnapshot snapshotPhone = await db
+          .child('drivers')
+          .child(widget.trip.driverId)
+          .child('phone')
+          .get();
+      if (mounted) {
+        driverName = snapshotName.value.toString();
+        driverEmail = snapshotEmail.value.toString();
+        driverPhone = snapshotPhone.value.toString();
+        setState(() {});
+      }
+    } catch (e) {
+      EasyLoading.showError(e.toString());
+    }
   }
 
   Future<void> fetchLocation() async {

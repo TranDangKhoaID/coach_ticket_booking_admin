@@ -58,7 +58,7 @@ class _TripItemState extends State<TripItem> {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.all(8),
+          margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: AppColor.primary[300],
             borderRadius: BorderRadius.circular(10),
@@ -80,15 +80,15 @@ class _TripItemState extends State<TripItem> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
                           horizontal: 8,
                         ),
                         child: Icon(Icons.arrow_forward),
                       ),
                       Text(
                         widget.trip.destinationTime,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -126,7 +126,7 @@ class _TripItemState extends State<TripItem> {
                         ),
                         Text(
                           widget.trip.departureDate,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             color: AppColor.white,
@@ -137,20 +137,20 @@ class _TripItemState extends State<TripItem> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Column(
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.circle_notifications),
-                      SizedBox(
+                      const Icon(Icons.circle_notifications),
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
                         departure,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -160,7 +160,7 @@ class _TripItemState extends State<TripItem> {
                   Container(
                     padding: const EdgeInsets.only(left: 12),
                     alignment: Alignment.centerLeft,
-                    height: 50,
+                    height: 20,
                     child: const DottedLine(
                       direction: Axis.vertical,
                       dashColor: Colors.black,
@@ -168,16 +168,16 @@ class _TripItemState extends State<TripItem> {
                   ),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.place,
                         color: Colors.red,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
                         destination,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),

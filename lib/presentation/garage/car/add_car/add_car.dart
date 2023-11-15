@@ -20,13 +20,13 @@ class _AddCarState extends State<AddCar> {
     return Scaffold(
       backgroundColor: AppColor.primary,
       appBar: AppBar(
-        title: Text('Thêm xe'),
+        title: const Text('Thêm xe'),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
       body: Container(
-        margin: EdgeInsets.all(10),
-        padding: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -36,7 +36,7 @@ class _AddCarState extends State<AddCar> {
                     onTap: AddCarController.instance.pickImage,
                     child: Center(
                       child: Container(
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         height: 180,
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -59,12 +59,12 @@ class _AddCarState extends State<AddCar> {
                   );
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Text(
                       'Tên xe: ',
                       style: TextStyle(
@@ -76,7 +76,7 @@ class _AddCarState extends State<AddCar> {
                   Expanded(
                     flex: 4,
                     child: Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(
@@ -87,7 +87,7 @@ class _AddCarState extends State<AddCar> {
                         () => DropdownButton(
                           isExpanded: true,
                           iconSize: 42.0,
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.arrow_drop_down,
                             color: AppColor.white,
                           ),
@@ -120,12 +120,12 @@ class _AddCarState extends State<AddCar> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Text(
                       'Biển số: ',
                       style: TextStyle(
@@ -137,7 +137,7 @@ class _AddCarState extends State<AddCar> {
                   Expanded(
                     flex: 4,
                     child: Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(
@@ -146,8 +146,8 @@ class _AddCarState extends State<AddCar> {
                       ),
                       child: TextField(
                         controller: licensePlates,
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
+                        style: const TextStyle(color: Colors.white),
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
                       ),
@@ -155,7 +155,7 @@ class _AddCarState extends State<AddCar> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               GestureDetector(
@@ -170,8 +170,8 @@ class _AddCarState extends State<AddCar> {
                     color: AppColor.primary[400],
                   ),
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(20),
-                  child: Text(
+                  padding: const EdgeInsets.all(20),
+                  child: const Text(
                     'Thêm',
                     style: TextStyle(
                       color: AppColor.white,

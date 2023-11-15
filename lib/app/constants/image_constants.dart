@@ -12,4 +12,7 @@ class ImageConstants {
   //driver
   static const String driverImages = 'assets/driver/images';
   static const String driverIcon = '$driverImages/driver.png';
+  //location
+  static const String locationImages = 'assets/location/images';
+  static const String locationIcon = '$locationImages/location.png';
 }
