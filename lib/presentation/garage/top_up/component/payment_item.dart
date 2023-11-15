@@ -1,50 +1,17 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/top_up.dart';
 
-class PaymentItem extends StatefulWidget {
+class PaymentItem extends StatelessWidget {
   final TopUp topUp;
+  final void Function()? onTapSucces;
+  final void Function()? onTapCancel;
   const PaymentItem({
     super.key,
     required this.topUp,
+    required this.onTapSucces,
+    required this.onTapCancel,
   });
-
-  @override
-  State<PaymentItem> createState() => _PaymentItemState();
-}
-
-class _PaymentItemState extends State<PaymentItem> {
-  DatabaseReference db = FirebaseDatabase.instance.ref();
-  String userName = 'Loading...';
-  String userPhone = 'Loading...';
-
-  Future<void> fectUser() async {
-    try {
-      DataSnapshot snapshotName = await db
-          .child('customers')
-          .child(widget.topUp.idUser)
-          .child('fullName')
-          .get();
-      DataSnapshot snapshotPhone = await db
-          .child('customers')
-          .child(widget.topUp.idUser)
-          .child('fullName')
-          .get();
-      userName = snapshotName.value.toString();
-      userPhone = snapshotPhone.value.toString();
-      setState(() {});
-    } catch (e) {
-      EasyLoading.showError(e.toString());
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fectUser();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,18 +25,6 @@ class _PaymentItemState extends State<PaymentItem> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            userName,
-            style: TextStyle(
-              color: AppColor.white,
-            ),
-          ),
-          Text(
-            userPhone,
-            style: TextStyle(
-              color: AppColor.white,
-            ),
-          ),
           Row(
             children: [
               Text(
@@ -80,7 +35,7 @@ class _PaymentItemState extends State<PaymentItem> {
                 ),
               ),
               Text(
-                widget.topUp.money.toString(),
+                topUp.money.toString(),
                 style: TextStyle(
                   color: AppColor.white,
                 ),
@@ -97,7 +52,7 @@ class _PaymentItemState extends State<PaymentItem> {
                 ),
               ),
               Text(
-                widget.topUp.paymentMethod,
+                topUp.paymentMethod,
                 style: TextStyle(
                   color: AppColor.white,
                 ),
@@ -114,7 +69,7 @@ class _PaymentItemState extends State<PaymentItem> {
                 ),
               ),
               Text(
-                widget.topUp.payContent,
+                topUp.payContent,
                 style: TextStyle(
                   color: AppColor.white,
                 ),
@@ -127,32 +82,38 @@ class _PaymentItemState extends State<PaymentItem> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Text(
-                  'Xác nhận',
-                  style: TextStyle(
-                    color: AppColor.white,
+              GestureDetector(
+                onTap: onTapSucces,
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    'Xác nhận',
+                    style: TextStyle(
+                      color: AppColor.white,
+                    ),
                   ),
                 ),
               ),
-              Container(
-                width: 90,
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Text(
-                  'Huỷ',
-                  style: TextStyle(
-                    color: AppColor.white,
+              GestureDetector(
+                onTap: onTapCancel,
+                child: Container(
+                  width: 90,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    'Huỷ',
+                    style: TextStyle(
+                      color: AppColor.white,
+                    ),
                   ),
                 ),
               )

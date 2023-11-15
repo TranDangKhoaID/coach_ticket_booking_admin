@@ -1,6 +1,7 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/trip.dart';
 
@@ -22,19 +23,28 @@ class _TripItemState extends State<TripItem> {
   String departure = 'Loading...';
   String destination = 'Loading...';
   Future<void> fetchLocation() async {
-    DataSnapshot snapshotDepart = await db
-        .child('locations')
-        .child(widget.trip.departureLocation)
-        .child('name')
-        .get();
-    DataSnapshot snapshotDes = await db
-        .child('locations')
-        .child(widget.trip.destinationLocation)
-        .child('name')
-        .get();
-    departure = snapshotDepart.value.toString();
-    destination = snapshotDes.value.toString();
-    setState(() {});
+    try {
+      DataSnapshot snapshotDepart = await db
+          .child('locations')
+          .child(widget.trip.departureLocation)
+          .child('name')
+          .get();
+      DataSnapshot snapshotDes = await db
+          .child('locations')
+          .child(widget.trip.destinationLocation)
+          .child('name')
+          .get();
+      departure = snapshotDepart.value.toString();
+      destination = snapshotDes.value.toString();
+      if (mounted) {
+        setState(() {
+          departure = snapshotDepart.value.toString();
+          destination = snapshotDes.value.toString();
+        });
+      }
+    } catch (e) {
+      EasyLoading.showError(e.toString());
+    }
   }
 
   @override

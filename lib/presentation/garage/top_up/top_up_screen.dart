@@ -1,12 +1,16 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:tdc_coach_admin/app/helpers/dialog_helper.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/top_up.dart';
 import 'package:tdc_coach_admin/presentation/garage/top_up/component/payment_item.dart';
+import 'package:tdc_coach_admin/presentation/garage/top_up/controller/top_up_controller.dart';
 
 class TopUpScreen extends StatelessWidget {
-  DatabaseReference db = FirebaseDatabase.instance.ref().child('top_ups');
+  TopUpScreen({super.key});
+  final DatabaseReference db = FirebaseDatabase.instance.ref().child('top_ups');
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,36 @@ class TopUpScreen extends StatelessWidget {
               status: status,
             );
             if (topUp.status == 0) {
-              return PaymentItem(topUp: topUp);
+              return PaymentItem(
+                topUp: topUp,
+                onTapSucces: () {
+                  final String fmoney = formatCurrency(topUp.money.toString());
+                  DialogHelper.showConfirmDialog(
+                    context: context,
+                    onPressConfirm: () {
+                      TopUpController.instance.addMoneyInWallerUser(
+                        userID: topUp.idUser,
+                        topUpID: topUp.id,
+                        money: int.parse(money),
+                        context: context,
+                      );
+                    },
+                    message: 'Xác nhận nạp cho tài khoản này $fmoney đ ?',
+                  );
+                },
+                onTapCancel: () {
+                  DialogHelper.showConfirmDialog(
+                    context: context,
+                    onPressConfirm: () {
+                      TopUpController.instance.cancelTopUP(
+                        topUpID: topUp.id,
+                        context: context,
+                      );
+                    },
+                    message: 'Xác nhận hủy nạp?',
+                  );
+                },
+              );
             } else {
               return Container();
             }
@@ -57,5 +90,15 @@ class TopUpScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String formatCurrency(String value) {
+    final formatter = NumberFormat("#,###", "vi_VN");
+    try {
+      int parsedValue = int.parse(value.replaceAll('.', ''));
+      return formatter.format(parsedValue);
+    } catch (e) {
+      return value;
+    }
   }
 }
