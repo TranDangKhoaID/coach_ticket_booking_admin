@@ -20,14 +20,14 @@ class PaymentItem extends StatelessWidget {
         color: AppColor.primary[400],
         borderRadius: BorderRadius.circular(10),
       ),
-      padding: EdgeInsets.all(16),
-      margin: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Text(
+              const Text(
                 'Số tiền nạp: ',
                 style: TextStyle(
                   fontSize: 16,
@@ -36,7 +36,7 @@ class PaymentItem extends StatelessWidget {
               ),
               Text(
                 topUp.money.toString(),
-                style: TextStyle(
+                style: const TextStyle(
                   color: AppColor.white,
                 ),
               ),
@@ -44,7 +44,7 @@ class PaymentItem extends StatelessWidget {
           ),
           Row(
             children: [
-              Text(
+              const Text(
                 'Phương thức: ',
                 style: TextStyle(
                   fontSize: 16,
@@ -53,7 +53,7 @@ class PaymentItem extends StatelessWidget {
               ),
               Text(
                 topUp.paymentMethod,
-                style: TextStyle(
+                style: const TextStyle(
                   color: AppColor.white,
                 ),
               ),
@@ -61,7 +61,7 @@ class PaymentItem extends StatelessWidget {
           ),
           Wrap(
             children: [
-              Text(
+              const Text(
                 'Lời nhắn: ',
                 style: TextStyle(
                   fontSize: 16,
@@ -70,13 +70,13 @@ class PaymentItem extends StatelessWidget {
               ),
               Text(
                 topUp.payContent,
-                style: TextStyle(
+                style: const TextStyle(
                   color: AppColor.white,
                 ),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
@@ -86,12 +86,12 @@ class PaymentItem extends StatelessWidget {
                 onTap: onTapSucces,
                 child: Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(14),
+                  padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
                     color: Colors.green,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Xác nhận',
                     style: TextStyle(
                       color: AppColor.white,
@@ -104,12 +104,12 @@ class PaymentItem extends StatelessWidget {
                 child: Container(
                   width: 90,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(14),
+                  padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Huỷ',
                     style: TextStyle(
                       color: AppColor.white,

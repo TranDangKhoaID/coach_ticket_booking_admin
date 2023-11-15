@@ -16,8 +16,8 @@ class TextFieldSignIn extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Color.fromRGBO(143, 148, 251, 1)),
-        boxShadow: [
+        border: Border.all(color: const Color.fromRGBO(143, 148, 251, 1)),
+        boxShadow: const [
           BoxShadow(
             color: Color.fromRGBO(143, 148, 251, .2),
             blurRadius: 20.0,

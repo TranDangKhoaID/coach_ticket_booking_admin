@@ -4,9 +4,11 @@ import 'package:tdc_coach_admin/domain/model/location.dart';
 
 class LocationTile extends StatelessWidget {
   final Location location;
+  final void Function()? onTapDelete;
   const LocationTile({
     super.key,
     required this.location,
+    required this.onTapDelete,
   });
 
   @override
@@ -35,6 +37,13 @@ class LocationTile extends StatelessWidget {
               color: AppColor.white,
               fontSize: 16,
             ),
+          ),
+        ),
+        leading: GestureDetector(
+          onTap: onTapDelete,
+          child: Icon(
+            Icons.delete,
+            color: Colors.redAccent,
           ),
         ),
       ),

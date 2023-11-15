@@ -161,7 +161,7 @@ class DetailDriver extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 30,
+                height: 20,
               ),
               Row(
                 children: [
@@ -184,26 +184,6 @@ class DetailDriver extends StatelessWidget {
                             color: AppColor.white,
                             fontWeight: FontWeight.bold,
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: AppColor.white,
-                      ),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(20),
-                      child: Text(
-                        'Xóa',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),

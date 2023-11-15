@@ -5,7 +5,12 @@ import 'package:tdc_coach_admin/domain/model/car.dart';
 
 class CarTile extends StatelessWidget {
   final Car car;
-  const CarTile({super.key, required this.car});
+  final void Function()? onTapDelete;
+  const CarTile({
+    super.key,
+    required this.car,
+    required this.onTapDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +34,13 @@ class CarTile extends StatelessWidget {
               ? Image.asset(ImageConstants.carIcon)
               : Image.network(car.image),
         ),
-        trailing: Icon(Icons.arrow_forward),
+        trailing: GestureDetector(
+          onTap: onTapDelete,
+          child: Icon(
+            Icons.delete,
+            color: Colors.redAccent,
+          ),
+        ),
       ),
     );
   }

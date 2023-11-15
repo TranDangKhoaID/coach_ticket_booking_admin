@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tdc_coach_admin/app/constants/image_constants.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
-import 'package:tdc_coach_admin/presentation/garage/car/add_car/controller/add_car_controller.dart';
+import 'package:tdc_coach_admin/presentation/garage/car/controller/add_car_controller.dart';
 
 class AddCar extends StatefulWidget {
   const AddCar({super.key});

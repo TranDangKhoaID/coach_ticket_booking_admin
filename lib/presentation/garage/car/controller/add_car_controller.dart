@@ -56,7 +56,7 @@ class AddCarController extends GetxController {
       final car = Car(
         id: idCar,
         name: dropDownvalue.value.toUpperCase(),
-        licensePlates: licensePlates,
+        licensePlates: licensePlates.toUpperCase(),
         image: imgUrl,
         status: 0,
       );
@@ -98,6 +98,7 @@ class AddCarController extends GetxController {
           code: uniqueRandomCode, // Mã code tùy ý
           status: 0, // Trạng thái tùy ý
           userPhone: '',
+          userID: '',
         );
         seats.add(seat);
       }
@@ -110,6 +111,22 @@ class AddCarController extends GetxController {
             .child(seat.id)
             .set(seat.toJson());
       }
+    } catch (e) {
+      EasyLoading.dismiss();
+      EasyLoading.showError(e.toString());
+    }
+  }
+
+  Future<void> deleteCar({
+    required String idCar,
+  }) async {
+    EasyLoading.show();
+    try {
+      await databaseReference.child('cars').child(idCar).remove();
+      await databaseReference.child('seats').child(idCar).remove();
+      EasyLoading.dismiss();
+      EasyLoading.showSuccess('Xóa xe thành công');
+      Get.back();
     } catch (e) {
       EasyLoading.dismiss();
       EasyLoading.showError(e.toString());

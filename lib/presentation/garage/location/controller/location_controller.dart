@@ -34,4 +34,19 @@ class LocationController extends GetxController {
       EasyLoading.showError(e.toString());
     }
   }
+
+  Future<void> deleteLocation({
+    required String idLocation,
+  }) async {
+    EasyLoading.show();
+    try {
+      await db.child('locations').child(idLocation).remove();
+      EasyLoading.dismiss();
+      EasyLoading.showSuccess('Xóa thành công');
+      Get.back();
+    } catch (e) {
+      EasyLoading.dismiss();
+      EasyLoading.showError(e.toString());
+    }
+  }
 }

@@ -17,13 +17,13 @@ class TopUpScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColor.primary,
       appBar: AppBar(
-        title: Text('Danh sách nạp tiền'),
+        title: const Text('Danh sách nạp tiền'),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
       body: Container(
-        margin: EdgeInsets.all(5),
+        margin: const EdgeInsets.all(5),
         child: FirebaseAnimatedList(
           query: db,
           itemBuilder: (context, snapshot, animation, index) {

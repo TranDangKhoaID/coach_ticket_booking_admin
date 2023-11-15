@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
-import 'package:tdc_coach_admin/presentation/garage/main_garage_screen.dart';
 import 'package:tdc_coach_admin/presentation/sign_in/component/header_img_widget.dart';
 import 'package:tdc_coach_admin/presentation/sign_in/component/text_field.dart';
 import 'package:tdc_coach_admin/app/auth/auth_controller.dart';
@@ -42,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Expanded(
                         child: ListTile(
-                          title: Text('Nhà xe'),
+                          title: const Text('Nhà xe'),
                           leading: Radio(
                             value: options[0],
                             groupValue: currentOption,
@@ -59,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Expanded(
                         child: ListTile(
-                          title: Text('Tài xế'),
+                          title: const Text('Tài xế'),
                           leading: Radio(
                             value: options[1],
                             groupValue: currentOption,
@@ -90,14 +88,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                           colors: [
                             Color.fromRGBO(143, 148, 251, 1),
                             Color.fromRGBO(143, 148, 251, .6),
                           ],
                         ),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           "Đăng nhập",
                           style: TextStyle(
@@ -106,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 70,
                   ),
                 ],

@@ -4,6 +4,7 @@ class Seat {
   final int code;
   final int status;
   String? userPhone;
+  String? userID;
 
   Seat({
     required this.id,
@@ -11,6 +12,7 @@ class Seat {
     required this.code,
     required this.status,
     this.userPhone,
+    this.userID,
   });
 
   Map<String, dynamic> toJson() {
@@ -20,6 +22,7 @@ class Seat {
       'code': code,
       'status': status,
       'userPhone': userPhone,
+      'userID': userID,
     };
   }
 
@@ -30,6 +33,7 @@ class Seat {
       code: json['code'],
       status: json['status'],
       userPhone: json['userPhone'],
+      userID: json['userID'],
     );
   }
 }

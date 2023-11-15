@@ -2,10 +2,12 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tdc_coach_admin/app/helpers/dialog_helper.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/car.dart';
 import 'package:tdc_coach_admin/presentation/garage/car/add_car/add_car.dart';
 import 'package:tdc_coach_admin/presentation/garage/car/cars/component/car_tile.dart';
+import 'package:tdc_coach_admin/presentation/garage/car/controller/add_car_controller.dart';
 
 class CarScreen extends StatelessWidget {
   CarScreen({super.key});
@@ -16,7 +18,7 @@ class CarScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColor.primary,
       appBar: AppBar(
-        title: Text('Danh sách xe'),
+        title: const Text('Danh sách xe'),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -40,7 +42,18 @@ class CarScreen extends StatelessWidget {
             image: image,
             status: status,
           );
-          return CarTile(car: car);
+          return CarTile(
+            car: car,
+            onTapDelete: () {
+              DialogHelper.showConfirmDialog(
+                context: context,
+                onPressConfirm: () {
+                  AddCarController.instance.deleteCar(idCar: id);
+                },
+                message: 'Xác nhận xóa xe: $name ?',
+              );
+            },
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
