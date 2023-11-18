@@ -26,42 +26,49 @@ class AuthController extends GetxController {
         password: password,
       );
 
-      // Kiểm tra xem đăng nhập thành công
+      final DataSnapshot snapshot =
+          await databaseReference.child("garage").child('email').get();
+      String emailGarageDB = snapshot.value.toString();
       if (userCredential.user != null) {
-        final DataSnapshot snapshot =
-            await databaseReference.child("garage").child('email').get();
-        String emailGarageDB = snapshot.value.toString();
         if (userType.value == '0') {
           if (email == emailGarageDB) {
-            isLoggedIn.value = true;
+            //isLoggedIn.value = true;
+            //AppPreferences.instance.saveOptionIsLoggedIn(0);
             EasyLoading.dismiss();
           } else {
+            auth.signOut();
             EasyLoading.dismiss();
             EasyLoading.showError('Lỗi phân quyền');
-            isLoggedIn.value = false;
+            return;
+            //isLoggedIn.value = false;
           }
         } else {
           final DataSnapshot snapshot = await databaseReference
               .child('drivers')
-              .child(userCredential.user!.uid)
+              .child(auth.currentUser!.uid)
               .child('email')
               .get();
           if (snapshot.value == email) {
-            isLoggedIn.value = true;
+            //AppPreferences.instance.saveOptionIsLoggedIn(1);
+            //isLoggedIn.value = true;
             EasyLoading.dismiss();
           } else {
-            isLoggedIn.value = false;
+            //isLoggedIn.value = false;
+            await auth.signOut();
             EasyLoading.showError('Bạn không phải tài xế');
             EasyLoading.dismiss();
+            return;
           }
         }
       } else {
-        isLoggedIn.value = false;
+        await auth.signOut();
         EasyLoading.dismiss();
+        return;
       }
     } catch (e) {
       // Xử lý lỗi nếu có
-      isLoggedIn.value = false;
+      //await auth.signOut();
+      //isLoggedIn.value = false;
       EasyLoading.dismiss();
       EasyLoading.showError(e.toString());
     }
@@ -72,6 +79,6 @@ class AuthController extends GetxController {
     auth.signOut();
     //AppPreferences.instance.logout();
     userType.value = '0';
-    isLoggedIn.value = false;
+    //isLoggedIn.value = false;
   }
 }

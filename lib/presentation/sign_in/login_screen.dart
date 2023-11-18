@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final email = TextEditingController();
   final password = TextEditingController();
-  String currentOption = options[0];
+  String currentOption = AuthController.instance.userType.value;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

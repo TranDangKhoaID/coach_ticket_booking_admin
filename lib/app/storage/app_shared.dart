@@ -7,6 +7,7 @@ class StorageKey {
   static const prefsKeyUserID = "PREFS_KEY_UID";
   static const prefsKeyGarageLogged = "PREFS_KEY_GARAGE_LOGGED";
   static const prefsKeyDriverLogged = "PREFS_KEY_DRIVER_LOGGED";
+  static const prefsKeyOptionLogged = "PREFS_KEY_OPTION_LOGGED";
 }
 
 class AppShared {
@@ -67,11 +68,11 @@ class AppPreferences {
   }
 
   Future<void> saveOptionIsLoggedIn(int option) async {
-    AppShared.share?.setInt(StorageKey.prefsKeyGarageLogged, option);
+    AppShared.share?.setInt(StorageKey.prefsKeyOptionLogged, option);
   }
 
   int? getOptionLoggedIn() {
-    return AppShared.share?.getInt(StorageKey.prefsKeyGarageLogged) ?? -1;
+    return AppShared.share?.getInt(StorageKey.prefsKeyOptionLogged) ?? 0;
   }
 
   // Future<void> setIsDriverLoggedIn() async {
@@ -83,7 +84,6 @@ class AppPreferences {
   // }
 
   Future<void> logout() async {
-    AppShared.share?.remove(StorageKey.prefsKeyGarageLogged);
-    AppShared.share?.remove(StorageKey.prefsKeyDriverLogged);
+    AppShared.share?.remove(StorageKey.prefsKeyOptionLogged);
   }
 }
