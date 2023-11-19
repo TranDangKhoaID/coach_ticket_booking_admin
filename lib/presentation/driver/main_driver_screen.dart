@@ -43,7 +43,7 @@ class _MainDriverScreenState extends State<MainDriverScreen> {
             index = value;
           });
         },
-        backgroundColor: AppColor.secondary,
+        backgroundColor: AppColor.primary,
         color: AppColor.primary.shade200,
         animationDuration: Duration(milliseconds: 300),
         items: items,

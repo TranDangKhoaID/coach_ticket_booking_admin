@@ -14,19 +14,15 @@ class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          //user is logged
-          if (snapshot.hasData &&
-              AuthController.instance.userType.value.endsWith('0')) {
-            return MainGarageScreen();
-          } else if (snapshot.hasData &&
-              AuthController.instance.userType.value.endsWith('1')) {
-            return MainDriverScreen();
-          }
-          //user is not logged
-          else {
+      body: Obx(
+        () {
+          if (AuthController.instance.isLoggedIn.value) {
+            if (AuthController.instance.userType.value == '0') {
+              return const MainGarageScreen();
+            } else {
+              return const MainDriverScreen();
+            }
+          } else {
             return const LoginScreen();
           }
         },

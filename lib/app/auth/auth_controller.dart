@@ -32,11 +32,10 @@ class AuthController extends GetxController {
       if (userCredential.user != null) {
         if (userType.value == '0') {
           if (email == emailGarageDB) {
-            //isLoggedIn.value = true;
-            //AppPreferences.instance.saveOptionIsLoggedIn(0);
+            isLoggedIn.value = true;
             EasyLoading.dismiss();
           } else {
-            auth.signOut();
+            await auth.signOut();
             EasyLoading.dismiss();
             EasyLoading.showError('Lỗi phân quyền');
             return;
@@ -49,12 +48,11 @@ class AuthController extends GetxController {
               .child('email')
               .get();
           if (snapshot.value == email) {
-            //AppPreferences.instance.saveOptionIsLoggedIn(1);
-            //isLoggedIn.value = true;
+            isLoggedIn.value = true;
             EasyLoading.dismiss();
           } else {
-            //isLoggedIn.value = false;
             await auth.signOut();
+            isLoggedIn.value = false;
             EasyLoading.showError('Bạn không phải tài xế');
             EasyLoading.dismiss();
             return;
@@ -62,13 +60,14 @@ class AuthController extends GetxController {
         }
       } else {
         await auth.signOut();
+        isLoggedIn.value = false;
         EasyLoading.dismiss();
         return;
       }
     } catch (e) {
       // Xử lý lỗi nếu có
-      //await auth.signOut();
-      //isLoggedIn.value = false;
+      await auth.signOut();
+      isLoggedIn.value = false;
       EasyLoading.dismiss();
       EasyLoading.showError(e.toString());
     }
@@ -77,8 +76,7 @@ class AuthController extends GetxController {
   void logout() {
     // Thực hiện đăng xuất và cập nhật trạng thái đăng nhập
     auth.signOut();
-    //AppPreferences.instance.logout();
     userType.value = '0';
-    //isLoggedIn.value = false;
+    isLoggedIn.value = false;
   }
 }
