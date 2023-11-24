@@ -101,6 +101,7 @@ class AddTripController extends GetxController {
         price: int.parse(price),
         driverId: driverId.value,
         carId: carId.value,
+        status: 0,
       );
       await database.child('trips').child(idTrip).set(trip.toJson());
       await database.child('cars').child(carId.value).update({'status': 1});

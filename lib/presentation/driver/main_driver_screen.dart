@@ -59,7 +59,7 @@ class _MainDriverScreenState extends State<MainDriverScreen> {
         widget = HomeDriverScreen();
         break;
       case 1:
-        widget = HistoryTrip();
+        widget = HistoryTripScreen();
         break;
     }
     return widget;

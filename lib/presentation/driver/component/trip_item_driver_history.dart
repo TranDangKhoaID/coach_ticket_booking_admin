@@ -1,16 +1,15 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/trip.dart';
-import 'package:tdc_coach_admin/presentation/detail_seat_driver/detail_seat_driver.dart';
 
-class TripItemDriver extends StatefulWidget {
+class TripItemDriverHistory extends StatefulWidget {
   final Trip trip;
   final void Function()? onTap;
   final void Function()? onTapConfirm;
-  const TripItemDriver({
+  const TripItemDriverHistory({
     super.key,
     required this.trip,
     required this.onTap,
@@ -18,10 +17,10 @@ class TripItemDriver extends StatefulWidget {
   });
 
   @override
-  State<TripItemDriver> createState() => _TripItemDriverState();
+  State<TripItemDriverHistory> createState() => _TripItemDriverHistoryState();
 }
 
-class _TripItemDriverState extends State<TripItemDriver> {
+class _TripItemDriverHistoryState extends State<TripItemDriverHistory> {
   //
   String departure = 'Loading...';
   String destination = 'Loading...';
@@ -151,27 +150,6 @@ class _TripItemDriverState extends State<TripItemDriver> {
                   ),
                   child: const Text(
                     'Chi tiết vé',
-                    style: TextStyle(
-                      color: AppColor.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              GestureDetector(
-                onTap: widget.onTapConfirm,
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: AppColor.primary,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: const Text(
-                    'Xác nhận chuyến',
                     style: TextStyle(
                       color: AppColor.white,
                       fontSize: 16,

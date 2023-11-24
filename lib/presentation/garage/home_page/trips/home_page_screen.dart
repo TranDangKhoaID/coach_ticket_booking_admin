@@ -59,6 +59,7 @@ class HomePageScreen extends StatelessWidget {
           String price = snapshot.child('price').value.toString();
           String driverId = snapshot.child('driverId').value.toString();
           String carId = snapshot.child('carId').value.toString();
+          int status = snapshot.child('status').value as int;
 
           Trip trip = Trip(
             id: id,
@@ -70,6 +71,7 @@ class HomePageScreen extends StatelessWidget {
             price: int.parse(price),
             driverId: driverId,
             carId: carId,
+            status: status,
           );
           return TripItem(
             onTap: () {

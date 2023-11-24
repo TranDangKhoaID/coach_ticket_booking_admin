@@ -5,6 +5,7 @@ import 'package:tdc_coach_admin/app/app.dart';
 import 'package:tdc_coach_admin/app/storage/app_shared.dart';
 import 'package:tdc_coach_admin/firebase_options.dart';
 import 'package:tdc_coach_admin/app/auth/auth_controller.dart';
+import 'package:tdc_coach_admin/presentation/detail_seat_driver/controller/detail_seat_controller.dart';
 import 'package:tdc_coach_admin/presentation/driver/controller/driver_controller.dart';
 import 'package:tdc_coach_admin/presentation/garage/car/controller/add_car_controller.dart';
 import 'package:tdc_coach_admin/presentation/garage/driver/detail_driver/controller/detail_driver_controller.dart';
@@ -26,6 +27,7 @@ void main() async {
   Get.put(TopUpController());
   Get.put(LocationController());
   Get.put(DriverController());
+  Get.put(DetailSeatDriverController());
   AppShared.init();
   runApp(const MyApp());
 }

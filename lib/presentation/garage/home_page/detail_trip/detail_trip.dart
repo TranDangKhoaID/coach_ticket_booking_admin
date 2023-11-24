@@ -392,8 +392,10 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
         .child(widget.trip.destinationLocation)
         .child('name')
         .get();
-    departure = snapshotDepart.value.toString();
-    destination = snapshotDes.value.toString();
-    setState(() {});
+    if (mounted) {
+      departure = snapshotDepart.value.toString();
+      destination = snapshotDes.value.toString();
+      setState(() {});
+    }
   }
 }

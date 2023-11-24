@@ -8,6 +8,7 @@ class StorageKey {
   static const prefsKeyGarageLogged = "PREFS_KEY_GARAGE_LOGGED";
   static const prefsKeyDriverLogged = "PREFS_KEY_DRIVER_LOGGED";
   static const prefsKeyOptionLogged = "PREFS_KEY_OPTION_LOGGED";
+  static const prefsKeyCarID = "PREFS_KEY_CAR_ID";
 }
 
 class AppShared {
@@ -83,7 +84,16 @@ class AppPreferences {
   //   return AppShared.share?.getBool(StorageKey.prefsKeyDriverLogged) ?? false;
   // }
 
+  Future<void> saveCarID(String carID) async {
+    AppShared.share?.setString(StorageKey.prefsKeyCarID, carID);
+  }
+
+  String? getCarID() {
+    return AppShared.share?.getString(StorageKey.prefsKeyCarID);
+  }
+
   Future<void> logout() async {
+    AppShared.share?.remove(StorageKey.prefsKeyCarID);
     AppShared.share?.remove(StorageKey.prefsKeyOptionLogged);
   }
 }
