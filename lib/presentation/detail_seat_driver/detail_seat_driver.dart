@@ -81,11 +81,10 @@ class _DetailSeatDriverState extends State<DetailSeatDriver> {
                         userPhone: userPhone,
                         userID: userID,
                         code: code,
-                        status: status,
                         name: name,
                       );
                     },
-                    message: 'Xác nhận vé?',
+                    message: 'Xác nhận ghế?',
                   );
                 },
                 onTapCancel: () {
@@ -93,11 +92,16 @@ class _DetailSeatDriverState extends State<DetailSeatDriver> {
                     context: context,
                     onPressConfirm: () {
                       DetailSeatDriverController.instance.cancelSeat(
+                        tripID: widget.tripID,
                         carID: widget.carID,
-                        seatID: seat.id,
+                        seatID: id,
+                        userPhone: userPhone,
+                        userID: userID,
+                        code: code,
+                        name: name,
                       );
                     },
-                    message: 'Chắc chắn hủy vé?',
+                    message: 'Chắc chắn hủy ghế?',
                   );
                 },
               );

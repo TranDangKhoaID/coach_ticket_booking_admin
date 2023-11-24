@@ -15,13 +15,12 @@ class DetailSeatDriverController extends GetxController {
     required String userPhone,
     required String userID,
     required int code,
-    required int status,
     required String name,
   }) async {
     EasyLoading.show();
     try {
       await db.child('seats').child(carID).child(seatID).update({'status': 2});
-      final seat = Seat(id: seatID, name: name, code: code, status: status);
+      final seat = Seat(id: seatID, name: name, code: code, status: 2);
       await db
           .child('trips')
           .child(tripID)
@@ -38,12 +37,24 @@ class DetailSeatDriverController extends GetxController {
   }
 
   Future<void> cancelSeat({
-    required carID,
-    required seatID,
+    required String tripID,
+    required String carID,
+    required String seatID,
+    required String userPhone,
+    required String userID,
+    required int code,
+    required String name,
   }) async {
     EasyLoading.show();
     try {
       await db.child('seats').child(carID).child(seatID).update({'status': 3});
+      final seat = Seat(id: seatID, name: name, code: code, status: 3);
+      await db
+          .child('trips')
+          .child(tripID)
+          .child('seats')
+          .child(seatID)
+          .set(seat.toJson());
       EasyLoading.dismiss();
       EasyLoading.showSuccess('Hủy thành công');
     } catch (e) {

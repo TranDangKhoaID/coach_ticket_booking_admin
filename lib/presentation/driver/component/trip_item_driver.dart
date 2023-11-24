@@ -1,10 +1,7 @@
-import 'package:dotted_line/dotted_line.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
 import 'package:tdc_coach_admin/domain/model/trip.dart';
-import 'package:tdc_coach_admin/presentation/detail_seat_driver/detail_seat_driver.dart';
 
 class TripItemDriver extends StatefulWidget {
   final Trip trip;
@@ -25,18 +22,20 @@ class _TripItemDriverState extends State<TripItemDriver> {
   //
   String departure = 'Loading...';
   String destination = 'Loading...';
+  String carName = 'Loading...';
+  String carLis = 'Loading...';
   DatabaseReference db = FirebaseDatabase.instance.ref();
   //
   Future<void> fetchLocation() async {
     DataSnapshot snapshotDepart = await db
         .child('locations')
         .child(widget.trip.departureLocation)
-        .child('name')
+        .child('address')
         .get();
     DataSnapshot snapshotDes = await db
         .child('locations')
         .child(widget.trip.destinationLocation)
-        .child('name')
+        .child('address')
         .get();
     if (mounted) {
       departure = snapshotDepart.value.toString();
@@ -45,141 +44,333 @@ class _TripItemDriverState extends State<TripItemDriver> {
     }
   }
 
+  Future<void> fetchCar() async {
+    DataSnapshot snapshotDepart =
+        await db.child('cars').child(widget.trip.carId).child('name').get();
+    DataSnapshot snapshotDes = await db
+        .child('cars')
+        .child(widget.trip.carId)
+        .child('licensePlates')
+        .get();
+    if (mounted) {
+      carName = snapshotDepart.value.toString();
+      carLis = snapshotDes.value.toString();
+      setState(() {});
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     fetchLocation();
+    fetchCar();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.blue[400],
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Row(
+    return SingleChildScrollView(
+      child: Column(
         children: [
-          Column(
-            children: [
-              const Text(
-                'Giờ xuất bến',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: AppColor.white,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                widget.trip.departureTime,
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: AppColor.secondary,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                widget.trip.departureDate,
-                style: const TextStyle(
-                  color: AppColor.white,
-                ),
-              )
-            ],
-          ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            alignment: Alignment.centerLeft,
-            height: 90,
-            child: const DottedLine(
-              direction: Axis.vertical,
-              dashColor: AppColor.secondary,
+            margin: EdgeInsets.all(5),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: AppColor.primary[400],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Thông tin chuyến',
+                  style: TextStyle(
+                    color: AppColor.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Mã chuyến',
+                      style: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      widget.trip.id,
+                      style: TextStyle(
+                        color: AppColor.secondary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Ngày xuất phát',
+                      style: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      widget.trip.departureDate,
+                      style: TextStyle(
+                        color: AppColor.secondary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Giờ xuất phát',
+                      style: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      widget.trip.departureTime,
+                      style: TextStyle(
+                        color: AppColor.secondary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Điểm đi',
+                      style: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      departure,
+                      style: TextStyle(
+                        color: AppColor.secondary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Điểm đến',
+                      style: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      destination,
+                      style: TextStyle(
+                        color: AppColor.secondary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  const Icon(
-                    Icons.location_on,
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            margin: EdgeInsets.all(5),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: AppColor.primary[400],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Thông tin xe',
+                  style: TextStyle(
                     color: AppColor.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(width: 5.0),
-                  Text(
-                    departure,
-                    style: const TextStyle(
-                      color: AppColor.white,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Mã xe',
+                      style: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.circle_notifications,
+                    Text(
+                      widget.trip.carId,
+                      style: TextStyle(
+                        color: AppColor.secondary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Tên xe',
+                      style: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      carName,
+                      style: TextStyle(
+                        color: AppColor.secondary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Biển số',
+                      style: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      carLis,
+                      style: TextStyle(
+                        color: AppColor.secondary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          GestureDetector(
+            onTap: widget.onTap,
+            child: IntrinsicWidth(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColor.primary[400],
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(15),
+                child: Text(
+                  'Chi tiết ghế',
+                  style: TextStyle(
                     color: AppColor.white,
-                  ),
-                  const SizedBox(width: 5.0),
-                  Text(
-                    destination,
-                    style: const TextStyle(
-                      color: AppColor.white,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              GestureDetector(
-                onTap: widget.onTap,
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: AppColor.primary,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: const Text(
-                    'Chi tiết vé',
-                    style: TextStyle(
-                      color: AppColor.white,
-                      fontSize: 16,
-                    ),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 5,
-              ),
-              GestureDetector(
-                onTap: widget.onTapConfirm,
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: AppColor.primary,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: const Text(
-                    'Xác nhận chuyến',
-                    style: TextStyle(
-                      color: AppColor.white,
-                      fontSize: 16,
+            ),
+          ),
+          SizedBox(
+            height: 80,
+          ),
+          GestureDetector(
+            onTap: widget.onTapConfirm,
+            child: IntrinsicWidth(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColor.primary[400],
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: Offset(0, 3),
                     ),
+                  ],
+                ),
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(15),
+                child: Text(
+                  'Xác nhận hoàn thành chuyến',
+                  style: TextStyle(
+                    color: AppColor.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ],
+            ),
           ),
         ],
       ),

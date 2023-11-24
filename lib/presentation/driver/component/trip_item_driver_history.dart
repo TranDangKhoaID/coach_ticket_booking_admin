@@ -53,9 +53,10 @@ class _TripItemDriverHistoryState extends State<TripItemDriverHistory> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.blue[400],
+        color: AppColor.primary[300],
         borderRadius: BorderRadius.circular(5.0),
       ),
       child: Row(
@@ -101,7 +102,7 @@ class _TripItemDriverHistoryState extends State<TripItemDriverHistory> {
             ),
           ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [

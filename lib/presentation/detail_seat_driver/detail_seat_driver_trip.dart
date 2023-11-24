@@ -34,47 +34,48 @@ class _DetailSeatDriverTripState extends State<DetailSeatDriverTrip> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColor.primary,
-        appBar: AppBar(
-          title: Text('Chi tiết ghế'),
-          elevation: 0,
-          backgroundColor: Colors.transparent,
+      backgroundColor: AppColor.primary,
+      appBar: AppBar(
+        title: Text('Chi tiết ghế'),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      body: Container(
+        margin: EdgeInsets.all(10),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: AppColor.primary[400],
+          borderRadius: BorderRadius.circular(5),
         ),
-        body: Container(
-          margin: EdgeInsets.all(10),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: AppColor.primary[400],
-            borderRadius: BorderRadius.circular(5),
+        child: FirebaseAnimatedList(
+          defaultChild: const Center(
+            child: CircularProgressIndicator(),
           ),
-          child: FirebaseAnimatedList(
-            defaultChild: const Center(
-              child: CircularProgressIndicator(),
-            ),
-            query: dbSeat,
-            itemBuilder: (context, snapshot, animation, index) {
-              String id = snapshot.child('id').value.toString();
-              int code = snapshot.child('code').value as int;
-              String name = snapshot.child('name').value.toString();
-              String userID = snapshot.child('userID').value.toString();
-              String userPhone = snapshot.child('userPhone').value.toString();
-              int status = snapshot.child('status').value as int;
-              final seat = Seat(
-                id: id,
-                name: name,
-                code: code,
-                status: status,
-                userID: userID,
-                userPhone: userPhone,
-              );
+          query: dbSeat,
+          itemBuilder: (context, snapshot, animation, index) {
+            String id = snapshot.child('id').value.toString();
+            int code = snapshot.child('code').value as int;
+            String name = snapshot.child('name').value.toString();
+            String userID = snapshot.child('userID').value.toString();
+            String userPhone = snapshot.child('userPhone').value.toString();
+            int status = snapshot.child('status').value as int;
+            final seat = Seat(
+              id: id,
+              name: name,
+              code: code,
+              status: status,
+              userID: userID,
+              userPhone: userPhone,
+            );
 
-              return SeatItemDriver(
-                seat: seat,
-                onTapConfirm: () {},
-                onTapCancel: () {},
-              );
-            },
-          ),
-        ));
+            return SeatItemDriver(
+              seat: seat,
+              onTapConfirm: () {},
+              onTapCancel: () {},
+            );
+          },
+        ),
+      ),
+    );
   }
 }
