@@ -56,7 +56,7 @@ class TextFieldSignIn extends StatelessWidget {
                 hintStyle: TextStyle(color: Colors.grey[700]),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:tdc_coach_admin/domain/model/trip.dart';
+import 'package:tdc_coach_admin/presentation/garage/main_garage_screen.dart';
 
 class AddTripController extends GetxController {
   static AddTripController get instance => Get.find();
@@ -111,6 +112,29 @@ class AddTripController extends GetxController {
           .update({'status': 1});
       EasyLoading.dismiss();
       EasyLoading.showSuccess('Thành công!');
+      Get.back();
+    } catch (e) {
+      EasyLoading.dismiss();
+      EasyLoading.showError(e.toString());
+    }
+  }
+
+  //đổi tài xế
+  Future<void> changeDriver({
+    required String idUser,
+    required String idTrip,
+    required String idUserChange,
+  }) async {
+    EasyLoading.show();
+    try {
+      await database.child('drivers').child(idUser).update({'status': 0});
+      await database.child('drivers').child(idUserChange).update({'status': 1});
+      await database
+          .child('trips')
+          .child(idTrip)
+          .update({'driverId': idUserChange});
+      EasyLoading.dismiss();
+      EasyLoading.showSuccess('Đổi tài xế thành công');
       Get.back();
     } catch (e) {
       EasyLoading.dismiss();

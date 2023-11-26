@@ -1,8 +1,14 @@
+import 'dart:ffi';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageKey {
   static const prefsKeyFullName = "PREFS_KEY_FULLNAME";
+
   static const prefsKeyEmail = "PREFS_KEY_EMAIL";
+  static const prefsKeyPassword = "PREFS_KEY_PASSWORD";
+  static const prefsKeyIsCheck = "PREFS_KEY_ISCHECK";
+
   static const prefsKeyPhone = "PREFS_KEY_PHONE";
   static const prefsKeyUserID = "PREFS_KEY_UID";
   static const prefsKeyGarageLogged = "PREFS_KEY_GARAGE_LOGGED";
@@ -35,15 +41,32 @@ class AppPreferences {
     return AppShared.share?.getString(StorageKey.prefsKeyFullName) ?? 'no name';
   }
 
+  //remember me
   Future<void> saveEmail(String email) async {
     AppShared.share?.setString(StorageKey.prefsKeyEmail, email);
   }
 
   String? getEmail() {
-    return AppShared.share?.getString(StorageKey.prefsKeyEmail) ??
-        'abc@gmail.com';
+    return AppShared.share?.getString(StorageKey.prefsKeyEmail) ?? '';
   }
 
+  Future<void> savePass(String password) async {
+    AppShared.share?.setString(StorageKey.prefsKeyPassword, password);
+  }
+
+  String? getPass() {
+    return AppShared.share?.getString(StorageKey.prefsKeyPassword) ?? '';
+  }
+
+  Future<void> saveCheck(bool check) async {
+    AppShared.share?.setBool(StorageKey.prefsKeyIsCheck, check);
+  }
+
+  bool? getCheck() {
+    return AppShared.share?.getBool(StorageKey.prefsKeyIsCheck) ?? false;
+  }
+
+  //
   Future<void> savePhone(String phone) async {
     AppShared.share?.setString(StorageKey.prefsKeyPhone, phone);
   }
@@ -90,6 +113,12 @@ class AppPreferences {
 
   String? getCarID() {
     return AppShared.share?.getString(StorageKey.prefsKeyCarID);
+  }
+
+  Future<void> deleteRememberme() async {
+    AppShared.share?.remove(StorageKey.prefsKeyEmail);
+    AppShared.share?.remove(StorageKey.prefsKeyPassword);
+    AppShared.share?.remove(StorageKey.prefsKeyIsCheck);
   }
 
   Future<void> logout() async {

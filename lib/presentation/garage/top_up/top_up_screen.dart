@@ -64,7 +64,6 @@ class TopUpScreen extends StatelessWidget {
                         userID: topUp.idUser,
                         topUpID: topUp.id,
                         money: int.parse(money),
-                        context: context,
                       );
                     },
                     message: 'Xác nhận nạp cho tài khoản này $fmoney đ ?',
@@ -76,7 +75,6 @@ class TopUpScreen extends StatelessWidget {
                     onPressConfirm: () {
                       TopUpController.instance.cancelTopUP(
                         topUpID: topUp.id,
-                        context: context,
                       );
                     },
                     message: 'Xác nhận hủy nạp?',

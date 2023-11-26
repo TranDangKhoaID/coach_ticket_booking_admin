@@ -1,8 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:tdc_coach_admin/app/helpers/dialog_helper.dart';
 import 'package:tdc_coach_admin/app/manager/color_manager.dart';
+import 'package:tdc_coach_admin/domain/model/driver.dart';
 import 'package:tdc_coach_admin/domain/model/trip.dart';
+import 'package:tdc_coach_admin/presentation/garage/home_page/add_trip/controller/add_trip_controller.dart';
 
 class DetailTripScreen extends StatefulWidget {
   final Trip trip;
@@ -81,6 +85,23 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                           fontSize: 16,
                         ),
                       ),
+                      IconButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return ChangeDriverWidget(
+                                idDriver: widget.trip.driverId,
+                                idTrip: widget.trip.id,
+                              );
+                            },
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.edit,
+                          color: AppColor.primary,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(
@@ -126,7 +147,7 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -268,24 +289,6 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Số ghế',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Text(
-                        '56',
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
                   Container(
                     margin: const EdgeInsets.only(top: 10),
                     width: double.infinity,
@@ -397,5 +400,100 @@ class _DetailTripScreenState extends State<DetailTripScreen> {
       destination = snapshotDes.value.toString();
       setState(() {});
     }
+  }
+}
+
+class ChangeDriverWidget extends StatelessWidget {
+  final String idDriver;
+  final String idTrip;
+  ChangeDriverWidget({
+    super.key,
+    required this.idDriver,
+    required this.idTrip,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    DatabaseReference db = FirebaseDatabase.instance.ref();
+    return Scaffold(
+      body: FirebaseAnimatedList(
+        defaultChild: const Center(
+          child: CircularProgressIndicator(),
+        ),
+        query: db.child('drivers'),
+        itemBuilder: (context, snapshot, animation, index) {
+          String id = snapshot.child('id').value.toString();
+          String email = snapshot.child('email').value.toString();
+          String fullName = snapshot.child('fullName').value.toString();
+          String phone = snapshot.child('phone').value.toString();
+          String drivingLicense =
+              snapshot.child('drivingLicense').value.toString();
+          String image = snapshot.child('image').value.toString();
+          String imageFrontID = snapshot.child('imageFrontID').value.toString();
+          String imageBackSideID =
+              snapshot.child('imageBackSideID').value.toString();
+          String status = snapshot.child('status').value.toString();
+          final driver = Driver(
+            id: id,
+            fullName: fullName,
+            email: email,
+            phone: phone,
+            drivingLicense: drivingLicense,
+            image: image,
+            imageFrontID: imageFrontID,
+            imageBackSideID: imageBackSideID,
+            status: int.parse(status),
+          );
+          if (driver.status == 0) {
+            return ChangeDriverItemWidget(
+              driver: driver,
+              onPressed: () {
+                DialogHelper.showConfirmDialog(
+                  context: context,
+                  onPressConfirm: () {
+                    AddTripController.instance.changeDriver(
+                      idUser: idDriver,
+                      idTrip: idTrip,
+                      idUserChange: driver.id,
+                    );
+                  },
+                  message: 'Xác nhận đổi tài xế?',
+                );
+              },
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
+    );
+  }
+}
+
+class ChangeDriverItemWidget extends StatelessWidget {
+  final Driver driver;
+  final void Function()? onPressed;
+  const ChangeDriverItemWidget({
+    super.key,
+    required this.driver,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(driver.fullName),
+      subtitle: Text(driver.phone),
+      trailing: IconButton(
+        onPressed: () {},
+        icon: IconButton(
+          onPressed: onPressed,
+          icon: Icon(
+            Icons.task_alt,
+          ),
+          color: Colors.green,
+        ),
+      ),
+    );
   }
 }

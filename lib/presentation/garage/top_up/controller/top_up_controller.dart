@@ -12,7 +12,6 @@ class TopUpController extends GetxController {
     required String userID,
     required String topUpID,
     required int money,
-    required BuildContext context,
   }) async {
     EasyLoading.show(status: 'Đang xử lí...');
     try {
@@ -24,10 +23,9 @@ class TopUpController extends GetxController {
           .child('customers')
           .child(userID)
           .update({'wallet': updateWallet});
-      await db.child('top_ups').child(topUpID).remove();
+      await db.child('top_ups').child(topUpID).update({'status': 1});
       EasyLoading.dismiss();
-      // ignore: use_build_context_synchronously
-      DialogHelper.showSuccessDialog('Nạp thành công', context: context);
+      EasyLoading.showError('Nạp thành công!');
     } catch (e) {
       EasyLoading.dismiss();
       EasyLoading.showError(e.toString());
@@ -36,14 +34,12 @@ class TopUpController extends GetxController {
 
   Future<void> cancelTopUP({
     required String topUpID,
-    required BuildContext context,
   }) async {
     EasyLoading.show(status: 'Đang xử lí');
     try {
-      await db.child('top_ups').child(topUpID).remove();
+      await db.child('top_ups').child(topUpID).update({'status': 2});
       EasyLoading.dismiss();
-      // ignore: use_build_context_synchronously
-      DialogHelper.showSuccessDialog('Hủy thành công', context: context);
+      EasyLoading.showError('Hủy thành công!');
     } catch (e) {
       EasyLoading.dismiss();
       EasyLoading.showError(e.toString());

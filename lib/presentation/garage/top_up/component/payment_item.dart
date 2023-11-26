@@ -28,6 +28,26 @@ class PaymentItem extends StatelessWidget {
           Row(
             children: [
               const Text(
+                'Ngày nạp: ',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: AppColor.white,
+                ),
+              ),
+              Text(
+                topUp.creatAt,
+                style: const TextStyle(
+                  color: AppColor.white,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            children: [
+              const Text(
                 'Số tiền nạp: ',
                 style: TextStyle(
                   fontSize: 16,
@@ -41,6 +61,9 @@ class PaymentItem extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 5,
           ),
           Row(
             children: [
@@ -58,6 +81,9 @@ class PaymentItem extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 5,
           ),
           Wrap(
             children: [
